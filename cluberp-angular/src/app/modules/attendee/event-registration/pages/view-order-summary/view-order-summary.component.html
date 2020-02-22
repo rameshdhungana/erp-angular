@@ -1,0 +1,420 @@
+<div class="inner-page">
+  <app-spinner-overlay [isLoading]="loading"></app-spinner-overlay>
+  <div class="page-top parallax booking-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <!--					<h2>Transportation Booking Form</h2>-->
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item">Home
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Order Summary</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="register-section register-form-section">
+    <div class="container">
+      <div class="table-responsive">
+        <table cellpadding="0" cellspacing="0" width="100%" height="100%">
+          <tbody>
+          <tr>
+            <td>
+              <table>
+
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table cellpadding="10" cellspacing="0" width="100%" align="center" bgcolor="#ffffff"
+                     style="border: 1px solid #ccc; padding: 15px;">
+                <tr>
+                  <td width="50%">{{orderDetail?.created_at | date :'medium'}}</td>
+
+                </tr>
+                <tr>
+                  <td colspan="2"><h3
+                    style="font-size: 20px; font-weight: 300;">{{orderDetail?.user?.first_name}} {{orderDetail?.user?.last_name}}
+                  </h3></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><p style="color: #2d5683; font-weight: 600;">Orders & Payments</p></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><p style="color: #2d5683; font-weight: 600; font-size: 17px;">Order Details</p>
+                    <p *ngIf="!orderIsCancelled" style="color: #2d5683; font-weight: 500; font-size: 17px;">Order
+                      Number: {{orderDetail?.order_cfy}}
+                      -{{orderDetail?.order_number}} (Submitted
+                      on {{orderDetail?.created_at| date :'medium'}})</p>
+
+                    <p *ngIf="orderIsCancelled" style="color: #2d5683; font-weight: 500; font-size: 17px;">Your order
+                      has been cancelled
+                      on {{orderDetail?.created_at| date :'medium'}}. The following striked items are your
+                      cancelled items.</p>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <div class="next-btn clearfix">
+                      <button *ngIf="isMainAttendee" type="submit" class="link-btn float-right mr-4"
+                              (click)="BackToEditOrder()">Edit Order
+                      </button>
+
+                      <button *ngIf="(isMainAttendee || orderIsCancelled) && netBalance!==0" type="button"
+                              [disabled]="redeemOrPayBalanceButtonClicked"
+                              (click)="netBalance < 0 ? openPaymentCheckout() : redeemBalance()"
+                              class="link-btn float-right mr-4">{{netBalance < 0 ? 'Pay Balance' : 'Redeem Balance'}} (
+                        ${{netBalance | convertToTwoFixedDecimal}} )
+                        <app-spinner [isLoading]="redeemOrPayBalanceButtonClicked"></app-spinner>
+                      </button>
+                    </div>
+                  </td>
+
+                </tr>
+                <tr *ngIf="confirmationCodeList.length">
+                  <td colspan="2"><p><span
+                    style="color: #2d5683; font-weight: 600; font-size: 17px;">Confirmation Codes</span>`(Use
+                    confirmation codes with phone or email to view or edit order)`</p>
+                  </td>
+                </tr>
+                <tr *ngIf="confirmationCodeList.length">
+                  <td colspan="2">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border-top:5px solid #148dd2;">
+                      <thead>
+                      <tr>
+                        <th width="30%" style="border: 1px solid #ccc; border-top: none; border-right: none">Attendee
+                        </th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Phone Number</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Email</th>
+                        <th style="border: 1px solid #ccc; border-top: none;">Confirmation Code <br></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let code of confirmationCodeList;let code_inx;">
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{code?.first_name}} {{code?.last_name}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{code?.phone_number ? code?.phone_number : '---'}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{code?.email ? code?.email : '---'}}</td>
+                        <td style="border: 1px solid #ccc; border-top: none;">{{code?.confirmation_code}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border-top:5px solid #148dd2;">
+                      <thead>
+                      <tr>
+                        <th width="30%" style="border: 1px solid #ccc; border-top: none; border-right: none">
+                          Item
+                        </th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Registrant
+                        </th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Rate</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Qty</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Amount <br>
+                          (AUD)
+                        </th>
+                        <th style="border: 1px solid #ccc; border-top: none;">Discount <br>
+                          (AUD)
+                        </th>
+                        <th style="border: 1px solid #ccc; border-top: none;">Net Amount<br>
+                          Paid <br>
+                          (AUD)
+                        </th>
+
+
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td colspan="4"
+                            style="border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; color: #2d5683; font-weight: 500;">
+                          <h5>For Attendee: {{orderDetail?.user?.first_name}} {{orderDetail?.user?.last_name}}</h5>
+                        </td>
+                        <td colspan="3"
+                            style="border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; text-align: right; color: #2d5683; font-weight: 500;">
+                          Order Number: {{orderDetail?.order_cfy}}-{{orderDetail?.order_number}}
+                        </td>
+
+
+                      </tr>
+                      <tr *ngFor="let item of mainAttendeeOrderedItemList;let main_inx=index"
+                          class="{{item.transaction_type=='Cancel'?'strikeout':'tr'}}">
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{item?.item_master.name}}
+                        </td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{orderDetail?.user?.first_name}} {{orderDetail?.user?.last_name}}</td>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item?.rate}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item?.quantity}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item?.amount}}</td>
+
+                        <td
+                          style="border: 1px solid #ccc; border-top: none;">${{item.discount}}
+                        </td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none;">
+                          ${{item?.amount_net | convertToTwoFixedDecimal}}</td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none"><b>Order Total</b></td>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          <b>${{generateTotalAmount(mainAttendeeOrderedItemList)}}</b>
+                        </td>
+                      </tr>
+                      </tbody>
+                      <tbody *ngFor="let eachGuestItemList of guestAttendeeOrderedItemList;let guest_inx=index;">
+                      <tr>
+                        <td colspan="4"
+                            style="border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; color: #2d5683; font-weight: 500;">
+                          <h5>For
+                            Attendee: {{eachGuestItemList[0]?.user?.first_name }} {{eachGuestItemList[0]?.user?.last_name}}</h5>
+
+                        </td>
+                        <td colspan="3"
+                            style="border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; text-align: right; color: #2d5683; font-weight: 500;">
+                          Order Number: {{orderDetail?.order_cfy}}-{{orderDetail?.order_number}}
+
+                        </td>
+                      </tr>
+                      <tr *ngFor="let item of eachGuestItemList;let item_inx = index; "
+                          class="{{item.transaction_type=='Cancel'?'strikeout':'tr'}}">
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{item?.item_master.name}}
+                        </td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{orderDetail?.user?.first_name}} {{orderDetail?.user?.last_name}}</td>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item?.rate}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item?.quantity}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item?.amount}}</td>
+
+                        <td
+                          style="border: 1px solid #ccc; border-top: none;">
+                          ${{item?.discount}}
+                        </td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none;">
+                          ${{item?.amount_net | convertToTwoFixedDecimal}}</td>
+                      </tr>
+
+
+                      <tr>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none"><b>Order Total</b></td>
+                        <td style="border: 1px solid #ccc; border-top: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          <b>${{generateTotalAmount(eachGuestItemList)}}</b>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr *ngIf="serviceChargeAndTaxItemList.length">
+                  <td colspan="2"><p style="color: #2d5683; font-weight: 600; font-size: 17px;">
+                    Service Charges & Taxes </p>
+                  </td>
+                </tr>
+                <tr *ngIf="serviceChargeAndTaxItemList.length">
+                  <td colspan="2">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border-top:5px solid #148dd2;">
+                      <thead>
+                      <tr>
+                        <th width="30%" style="border: 1px solid #ccc; border-top: none; border-right: none">Name</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Type</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Date</th>
+                        <th style="border: 1px solid #ccc; border-top: none;">Amount <br>(AUD)</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+
+                      <tr *ngFor="let item of serviceChargeAndTaxItemList;let pay_inx;">
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{item.item_master.name}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.item_master.item_is_tax ? 'Tax' : 'Service Charge'}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.created_at| date:'medium'}}</td>
+
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          ${{item?.amount_net | convertToTwoFixedDecimal}}</td>
+                      </tr>
+
+                      <tr>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none">
+                          <b>Net Service Charge and Taxes</b></td>
+                        <td style="border: 1px solid #ccc; border-top: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          <b>${{generateTotalAmount(serviceChargeAndTaxItemList)}}</b>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr *ngIf="couponItemList.length">
+                  <td colspan="2"><p style="color: #2d5683; font-weight: 600; font-size: 17px;">Coupons</p>
+                  </td>
+                </tr>
+                <tr *ngIf="couponItemList.length">
+                  <td colspan="2">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border-top:5px solid #148dd2;">
+                      <thead>
+                      <tr>
+                        <th width="30%" style="border: 1px solid #ccc; border-top: none; border-right: none">Type</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Coupon Code</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Date</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Amount Limit</th>
+                        <th style="border: 1px solid #ccc; border-top: none;">Amount Used <br>(AUD)</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let item of couponItemList;let cop_inx;">
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{item?.coupon.type}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item?.coupon.coupon_code}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.created_at| date:'medium'}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{item?.coupon.amount_limit}}</td>
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          ${{item?.amount_net | convertToTwoFixedDecimal}}</td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none"><b>Total Coupon Amount
+                          Used</b></td>
+                        <td style="border: 1px solid #ccc; border-top: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          <b>${{generateTotalAmount(couponItemList)}}</b>
+                        </td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr *ngIf="paymentItemList.length">
+                  <td colspan="2"><p style="color: #2d5683; font-weight: 600; font-size: 17px;">Payments </p>
+                  </td>
+                </tr>
+                <tr *ngIf="paymentItemList.length">
+                  <td colspan="2">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border-top:5px solid #148dd2;">
+                      <thead>
+                      <tr>
+                        <th width="30%" style="border: 1px solid #ccc; border-top: none; border-right: none">Type</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Method</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Date</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Ref #</th>
+                        <th style="border: 1px solid #ccc; border-top: none;">Amount <br>(AUD)</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let item of paymentItemList;let pay_inx;">
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{item.item_master.name}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.item_master.name}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.created_at| date:'medium'}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.transaction_reference_id}}</td>
+                        <td style="border: 1px solid #ccc; border-top: none;">${{item?.amount_final}}</td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none"><b>Total</b></td>
+                        <td style="border: 1px solid #ccc; border-top: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          <b>${{generateTotalAmount(paymentItemList)}}</b>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr *ngIf="refundItemList.length">
+                  <td colspan="2"><p style="color: #2d5683; font-weight: 600; font-size: 17px;">Refunds</p>
+                  </td>
+                </tr>
+                <tr *ngIf="refundItemList.length">
+                  <td colspan="2">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border-top:5px solid #148dd2;">
+                      <thead>
+                      <tr>
+                        <th width="30%" style="border: 1px solid #ccc; border-top: none; border-right: none">Type</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Method</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Date</th>
+                        <th style="border: 1px solid #ccc; border-top: none; border-right: none;">Ref #</th>
+                        <th style="border: 1px solid #ccc; border-top: none;">Amount <br>(AUD)</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let item of refundItemList;let pay_inx;">
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none">{{item.item_master.name}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.item_master.name}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.created_at| date:'medium'}}</td>
+                        <td
+                          style="border: 1px solid #ccc; border-top: none; border-right: none;">{{item.transaction_reference_id}}</td>
+                        <td style="border: 1px solid #ccc; border-top: none;">${{item?.amount_final}}</td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid #ccc; border-top: none; border-right: none"><b>Total</b></td>
+                        <td style="border: 1px solid #ccc; border-top: none;"></td>
+                        <td style="border: 1px solid #ccc; border-top: none; "></td>
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                        <td style="border: 1px solid #ccc; border-top: none;">
+                          <b>${{generateTotalAmount(refundItemList)}}</b>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!--<div class="next-btn clearfix">-->
+          <!--<button type="submit" class="link-btn float-right" (click)="finishOrderSummary()">Finish<i-->
+          <!--class="fa fa-long-arrow-right"></i>-->
+          <!--</button>-->
+          <!--</div>-->
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </section>
+</div>

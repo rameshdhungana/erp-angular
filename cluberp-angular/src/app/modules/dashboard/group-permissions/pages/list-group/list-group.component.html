@@ -1,0 +1,65 @@
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Group List</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']" L>Dashboard</a></li>
+        <li class="active">Group List</li>
+      </ol>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-6 text-right">
+    <div class="view-icons"><a href="#" id="viewGrid" class="switcher btn btn-link active"><i
+      class="fa fa-th"></i></a><a href="#" id="viewList" class="switcher btn btn-link"><i class="fa fa-bars"></i></a>
+    </div>
+    <a [routerLink]="['/groups/create']" class="btn btn-info rounded"><i class="fa fa-plus"></i> Add Group</a>
+  </div>
+</div>
+
+<div class="ptoject list employee-list-view">
+  <div class="user-list">
+    <table class="table table-striped user-table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Permissions</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let group of groupList;">
+        <td>{{group?.name}}</td>
+
+        <td>[<span *ngFor="let perm of group?.permissions| slice:0:3">{{perm.name}} ,</span>]</td>
+
+
+        <td>
+          <div class="action">
+            <a [routerLink]="['/groups/detail/',group.uuid]" data-toggle="tooltip" data-placement="top"
+               title="View Detail">
+              <i class="fa fa-eye"></i>
+            </a>
+            <a [routerLink]="['/groups/edit/',group.uuid]" data-toggle="tooltip" data-placement="top" title="Edit">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a [routerLink]="['/groups/detail/',group.uuid]" data-toggle="tooltip" data-placement="top" title="Delete">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="ps15">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+        <li class="page-item"><a class="page-link active" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+

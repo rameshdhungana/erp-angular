@@ -1,0 +1,132 @@
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Events Detail</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active">Events Detail</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="col-sm-10 col-md-4 col-lg-4">
+    <div class="btn-group pull-right" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic">
+        Action <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+          role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/events/',eventUuid,'attendees']">Event
+          Attendees</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/events/',eventUuid,'debitors']">Debitor
+          List </a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/events/',eventUuid,'creditors']">Creditor
+          List</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/events/',eventUuid,'refund-list']">Refund
+          List</a></li>
+        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/events/',eventUuid,'receipt-list']">Receipt
+          List</a></li>
+        <li role="separator" class="dropdown-divider"></li>
+        <li *ngFor="let type of eventItemGroupTypeList" role="menuitem">
+          <a class="dropdown-item" (click)="redirectToEventItemListComponent(type.name)">
+            {{type.name}} Items
+          </a></li>
+        <li role="separator" class="dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item"
+                               [routerLink]="['/admin/events/',eventUuid,'arrival-departure-report']">Arrival
+          Departure Report</a></li>
+
+
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-2 col-md-2 col-lg-2"></div>
+</div>
+<!-- Page Top Wrapper End -->
+<div class="event-detail-list">
+  <div class="card">
+    <div class="card-header">
+      <div class="thumbnail"><img src="../../../../../../assets/images/ABCD_event-slike-03.jpg" alt="Card Holder Name"/>
+      </div>
+      <div class="card-holder-name">
+        <h2>{{eventDetail?.title}}</h2>
+        <p>Created At <span>{{eventDetail?.created_at | date:'medium'}}</span></p>
+      </div>
+    </div>
+    <div class="card-body">
+      <h4>Event Detail<span class="seperator"></span></h4>
+
+      <!--<form method="post" action="https://test.api.securepay.com.au/directpost/authorise" [formGroup]="paymentForm">-->
+      <!--<form method="post" (ngSubmit)="clickPaymentForm()"  [formGroup]="paymentForm">-->
+        <!--<input type="hidden" name="EPS_MERCHANT" value="ABC0010" formControlName="EPS_MERCHANT">-->
+        <!--<input type="hidden" name="EPS_TXNTYPE" value="0" formControlName="EPS_TXNTYPE">-->
+        <!--<input type="hidden" name="EPS_REFERENCEID" value="Test Reference" formControlName="EPS_REFERENCEID">-->
+        <!--<input type="hidden" name="EPS_AMOUNT" value="1.00" formControlName="EPS_AMOUNT">-->
+        <!--<input type="hidden" name="EPS_TIMESTAMP" value="201906141010" formControlName="EPS_TIMESTAMP">-->
+        <!--<input type="hidden" name="EPS_FINGERPRINT" value="01a1edbb159aa01b99740508d79620251c2f871d"-->
+               <!--formControlName="EPS_FINGERPRINT">-->
+        <!--&lt;!&ndash;<input type="hidden" name="EPS_RESULTURL" value='http://localhost:4200/admin/events/8fe436d9-6c4d-4da9-a85c-805118683238' formControlName="EPS_RESULTURL">&ndash;&gt;-->
+        <!--&lt;!&ndash;Customer-entered fields:&ndash;&gt;-->
+        <!--<input type="text" name="EPS_CARDNUMBER" formControlName="EPS_CARDNUMBER">-->
+        <!--<select name="EPS_EXPIRYMONTH" formControlName="EPS_EXPIRYMONTH">-->
+          <!--<option value="01">01-->
+          <!--<option value="02">02-->
+          <!--<option value="03">03-->
+          <!--<option value="04">04-->
+          <!--<option value="05">05-->
+          <!--<option value="06">06-->
+          <!--<option value="07">07-->
+          <!--<option value="08">08-->
+          <!--<option value="09">09-->
+          <!--<option value="10">10-->
+          <!--<option value="11">11-->
+          <!--<option value="12">12-->
+        <!--</select>-->
+        <!--<select name="EPS_EXPIRYYEAR" formControlName="EPS_EXPIRYYEAR">-->
+          <!--<option value="2019">2019-->
+          <!--<option value="2020">2020-->
+          <!--<option value="2021">2021-->
+          <!--<option value="2022">2022-->
+          <!--<option value="2023">2023-->
+        <!--</select>-->
+        <!--<input type="text" name="EPS_CCV" formControlName="EPS_CCV">-->
+
+
+        <!--&lt;!&ndash;<input type="text" name="EPS_CARDNUMBER">&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="text" name="EPS_EXPIRYMONTH">&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="text" name="EPS_EXPIRYYEAR">&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="text" name="EPS_CCV">&ndash;&gt;-->
+        <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+      <!--</form>-->
+      <ul>
+        <li><b>Title :</b><span>{{eventDetail?.title}}</span></li>
+        <li><b>Start Date :</b><span>{{eventDetail?.start_date|date:'MMM dd yyy'}}</span></li>
+        <li><b>End Date :</b><span>{{eventDetail?.end_date|date:'MMM dd yyy'}}</span></li>
+        <li><b>Single Day Event :</b><span>{{eventDetail?.is_single_day_event}}</span></li>
+        <li><b>Start Time
+          :</b><span>{{eventDetail?.is_singal_day_event ? eventDetail?.start_time : eventDetail?.start_date|date:'shortTime'}}</span>
+        </li>
+        <li><b>End Time
+          :</b><span>{{eventDetail?.is_singal_day_event ? eventDetail?.end_time : eventDetail?.end_date|date:'shortTime'}}</span>
+        </li>
+        <li><b>Venue Location :</b><span>{{eventDetail?.venue_location}}</span></li>
+        <li><b>Label :</b><span [innerHTML]="eventDetail?.label"></span></li>
+        <li><b>Allow group registration :</b><span>{{eventDetail?.allow_group_registration}}</span></li>
+        <li><b>Max group limit :</b><span>{{eventDetail?.max_group_limit}}</span></li>
+        <li><b>Status :</b><span>{{eventDetail?.status}}</span></li>
+        <li><b>Show total capacity :</b><span> {{eventDetail?.show_total_capacity}}</span></li>
+        <li><b>Show remaining seats :</b><span> {{eventDetail?.show_remaining_seats}}</span></li>
+        <li><b>Is published :</b><span></span> {{eventDetail?.is_published}}</li>
+        <li><b>Show start time :</b><span> {{eventDetail?.show_start_time}}</span></li>
+        <li><b>Show end time :</b><span> {{eventDetail?.show_end_time}}</span></li>
+        <li><b>Event Type :</b><span>{{eventDetail?.type.name}}</span></li>
+        <li><b>Category :</b><span>{{eventDetail?.category.name}}</span></li>
+        <li><b>Organizer :</b><span>{{eventDetail?.organizer.name}}</span></li>
+        <li><b>Summary :</b><span [innerHTML]="eventDetail?.summary"></span></li>
+        <li><b>Description :</b><span [innerHTML]="eventDetail?.description"></span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+

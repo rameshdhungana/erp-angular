@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files  */
+/*@import url('../src/assets/css/animate.css');*/
+/*@import url('../src/assets/css/datatables.min.css');*/
+/*@import url('../src/assets/css/dropzone.css');*/
+@import url('../node_modules/bootstrap/dist/css/bootstrap.css');
+@import url('../node_modules/font-awesome/css/font-awesome.css');
+@import url('../node_modules/ngx-select-dropdown/dist/assets/style.css');
+@import url('../node_modules/intl-tel-input/build/css/intlTelInput.css');
+@import "../node_modules/ng-pick-datetime/assets/style/picker.min.css";
+@import url('../src/assets/css/style.css');
+@import url('../src/assets/css/responsive.css');
+
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.dropdown-menu li a:hover {
+  background-color: lightgray;
+}
+
+
+input[type="date"] {
+  width: 100%;
+  border: none;
+  clip-path: inset(0 1.6rem 0 0);
+  outline: none;
+  outline: 0;
+}

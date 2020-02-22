@@ -1,0 +1,184 @@
+<div class="inner-page">
+  <app-spinner-overlay [isLoading]="loading"></app-spinner-overlay>
+  <div class="page-top parallax booking-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <!--					<h2>Transportation Booking Form</h2>-->
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item">Home
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Transportation Booking Form</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="register-section register-form-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="box-container">
+            <div class="form-title no-margin">
+              <h3>Step <span class="count-number">4</span>Book Transportation</h3>
+            </div>
+            <form class="row">
+              <div class="form-group control-group bg-light booking-count col-lg-12">
+                <label class="form-label">No .of Attendees: </label>
+                <span class="round-number">{{allAttendeesDetail?.number_of_attendees}}</span>
+              </div>
+            </form>
+            <form [formGroup]="transportationForm" (ngSubmit)="registerTransportationItems()">
+              <div class="row book-item container">
+                <!--<div class="col-lg-2 col-md-3 col-sm-4">-->
+                <!--<h4 class="name-of-guest">Name of Guest</h4>-->
+                <!--<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">-->
+                <!--<a *ngFor="let attendee of allAttendeesDetail?.attendees;let inx=index" class="nav-link active"-->
+                <!--id=`guest_user{{inx}}`-->
+                <!--(click)="changeAttendeeTab()"> {{attendee.user.first_name}} {{attendee.user.last_name}}</a>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <div class="col-sm-12">
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                      <p class="name-of-guest">
+                        <b class="h5">Transportation</b> <span class="font-italic"> (Please choose transportation items or `Not
+                        Required` for each attendees.)</span></p>
+                      <div formArrayName="attendeesFormArray">
+
+                        <div *ngFor="let eachForm of childArrayForm.controls; let child_form_inx = index;">
+                          <div [formGroupName]="child_form_inx">
+                            <div class="accordion">
+                              <div class="for-attendee-header"><h5 class="pt-2">
+                                {{child_form_inx + 1}}. For Attendee
+                                : {{allAttendeesDetail?.attendees[child_form_inx]?.user.first_name}} {{allAttendeesDetail?.attendees[child_form_inx]?.user.last_name}}</h5>
+                              </div>
+                              <div class="card">
+                                <div class="card-header control-group">
+                                  <label class="control control--checkbox">
+                                    <input type="checkbox" formControlName="not_required"
+                                           (change)="notRequiredOptionClicked(child_form_inx,$event.target.checked)">
+                                    <input formControlName="attendee_uuid" type="hidden">
+                                    <div class="control__indicator"></div>
+                                    <span style="color:red;">Not Required</span>
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div formArrayName="transportation_item_list">
+                                <div
+                                  *ngFor="let itemForm of eachForm['controls']['transportation_item_list'].controls;let itemForm_inx = index">
+                                  <div [formGroupName]="itemForm_inx">
+                                    <div class="card">
+                                      <div class="card-header control-group">
+                                        <label class="control control--checkbox">
+                                          <input type="checkbox" formControlName="transportation_item_checked"
+                                                 value="{{allAttendeesDetail?.attendees[child_form_inx].uuid}}"
+                                                 (change)="addOrRemoveSelectedItemList($event.target.checked,transportationItemList[itemForm_inx],
+                                                 allAttendeesDetail?.attendees[child_form_inx].uuid,child_form_inx,itemForm_inx)">
+                                          <div class="control__indicator"></div>
+                                          {{transportationItemList[itemForm_inx]?.item_master?.name}}
+                                          <span
+                                            class="pull-right">${{transportationItemList[itemForm_inx]?.current_rate}}
+                                          </span>
+
+                                        </label>
+                                        <input formControlName="transportation_item_uuid" type="hidden">
+
+                                      </div>
+                                      <div class="card-body"
+                                           *ngIf="itemForm['controls']['transportation_item_checked'].value">
+                                        <div class="row">
+                                          <div class="col-lg-6 col-sm-12 col-md-12"
+                                               *ngIf="transportationItemList[itemForm_inx]?.ask_for_arrival_datetime">
+                                            <span class="col-12">Arrival DateTime</span>
+                                            <div class="col-12">
+                                              <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
+                                                     formControlName="arrival_datetime"
+                                                     placeholder="Arrival Date Time">
+                                              <owl-date-time #dt1 [hour12Timer]="true"></owl-date-time>
+                                              <app-control-messages
+                                                [control]="itemForm['controls']['arrival_datetime']"></app-control-messages>
+
+                                            </div>
+                                          </div>
+
+                                          <div class="col-lg-6 col-sm-12 col-md-12"
+                                               *ngIf="transportationItemList[itemForm_inx]?.ask_for_departure_datetime">
+                                            <span class="col-12">Departure DateTime</span>
+                                            <div class="col-12">
+                                              <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
+                                                     formControlName="departure_datetime"
+                                                     placeholder=" Departure Date Time"
+                                                     [min]="itemForm['controls']['arrival_datetime'].value">
+                                              <owl-date-time #dt2 [hour12Timer]="true"></owl-date-time>
+                                              <app-control-messages
+                                                [control]="itemForm['controls']['departure_datetime']"></app-control-messages>
+                                              <div
+                                                *ngIf="itemForm['controls']['departure_datetime'].invalid &&
+                                                itemForm['controls']['departure_datetime'].errors?.owlDateTimeMin">
+                                                <small class="red-text">Departure date-time can not be less than Arrival
+                                                  date-time.
+                                                </small>
+                                              </div>
+
+                                            </div>
+                                          </div>
+                                          <div class="col-lg-12 col-sm-12 col-md-12 pt-2"
+
+                                               *ngIf="transportationItemList[itemForm_inx]?.ask_for_pickup_location &&
+                                          transportationItemList[itemForm_inx]?.transportation_pickup_locations.length">
+                                            <ngx-select-dropdown (change)="onSelectionOfPickupLocations($event)"
+                                                                 formControlName="pickup_location"
+                                                                 [multiple]="false "
+                                                                 class="col-lg-12"
+                                                                 [config]="config"
+                                                                 [options]="transportationItemList[itemForm_inx]?.transportation_pickup_locations"></ngx-select-dropdown>
+                                            <app-control-messages
+                                              [control]="itemForm['controls']['pickup_location']"></app-control-messages>
+
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="col-12">
+                    <app-alert></app-alert>
+                  </div>
+
+                  <div class="next-btn clearfix">
+                    <button type="submit" class="link-btn" (click)="editAccommodation()"><i
+                      class="fa fa-long-arrow-left"></i>Edit Accommodation
+                    </button>
+                    <button type="submit" class="link-btn float-right" [disabled]="formIsSubmitted">Next<i
+                      class="fa fa-long-arrow-right"></i>
+                      <app-spinner [isLoading]="formIsSubmitted"></app-spinner>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

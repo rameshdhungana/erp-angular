@@ -1,0 +1,7 @@
+@import url('../../../../../../../src/assets/css/dashboard/table.css');
+@import url('../../../../../../../src/assets/css/dashboard/page-top.css');
+
+.form-group.required .control-label:after {
+  content: "*";
+  color: red;
+}

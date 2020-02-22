@@ -1,0 +1,25 @@
+/******************************************
+Footer css start
+******************************************/
+.footer-dashboard {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 250px;
+  padding: 1.5rem 2rem;
+  background-color: transparent;
+}
+
+.footer-dashboard p {
+  color: #595959;
+  font-size: 12px;
+}
+
+.footer-dashboard p a {
+  color: #595959;
+  font-weight: 500;
+}
+
+.footer-dashboard p a:hover {
+  color: #2186c4;
+}

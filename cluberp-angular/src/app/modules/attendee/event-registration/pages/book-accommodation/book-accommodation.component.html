@@ -1,0 +1,189 @@
+<div class="inner-page">
+  <app-spinner-overlay [isLoading]="loading"></app-spinner-overlay>
+  <div class="page-top parallax booking-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Booking Form</h2>
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item">Home</li>
+              <li class="breadcrumb-item active" aria-current="page">Accommodation Form</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="register-section register-form-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="box-container">
+            <div class="form-title no-margin">
+              <h3>Step <span class="count-number">3</span>Book Room</h3>
+            </div>
+            <form action="" class="row clearfix">
+              <div class="form-group control-group bg-light booking-count col-lg-12 text-center">
+                <div class="float-left">
+
+                  <label class="form-label">No .of Attendees: </label>
+                  <!--<input type="text" name="attendes" class="form-control" id="attendes" value=""/>-->
+                  <span class="round-number">{{allAttendeesDetail?.number_of_attendees}}</span>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let attendee of allAttendeesDetail?.attendees">
+                    <button type="button"
+                            class="btn btn-primary mb-1"
+                            style="border-radius: 20px;">
+                      {{attendee.user.first_name}} {{attendee.user.last_name}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="row book-item container">
+              <!--<div class="col-lg-2 col-sm-4 col-md-3">-->
+              <!--<h4 class="name-of-guest">Name of Guest</h4>-->
+              <!--<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">-->
+
+              <!--<a *ngFor="let attendee of allAttendeesDetail?.attendees;let inx=index" class="nav-link active"-->
+              <!--id=`guest_user{{inx}}`-->
+              <!--(click)="changeAttendeeTab()"> {{attendee.user.first_name}} {{attendee.user.last_name}}</a>-->
+
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-lg-12 col-sm-12 col-md-9">-->
+              <div class="col-sm-12">
+                <form (ngSubmit)="registerAccommodationItem()" [formGroup]="accommodationForm">
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                      <p class="name-of-guest">
+                        <b class="h5">Accommodation</b> <span class="font-italic"> (Please choose any  one accommodation.
+                        )</span>
+                      </p>
+                      <div class="form-group control-group col-lg-12 no-border"
+                           *ngFor="let eventItem of accommodationItemList;let i=index;">
+                        <label for="accommodation{{i}}" class="no-margin"
+                               [ngStyle]="{'background-color':f['accommodation_item_uuid'].value === eventItem?.uuid ? 'lightgray' : 'transparent' }">
+                          <div class="row">
+                            <div class="col-lg-7">
+                              <div class="row no-gutters">
+                                <div class="col-lg-1">
+
+                                  <input type="radio" class="form-control"
+                                         value="{{eventItem?.uuid}}"
+                                         id="accommodation{{i}}"
+                                         formControlName="accommodation_item_uuid"/>
+                                  <!--<div class="control__indicator"></div>-->
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="thumbnail">
+                                    <img src="../../../../../../assets/images/thumbnail1.jpg">
+                                  </div>
+                                </div>
+                                <div class="col-lg-8">
+                                  <div class="room-spec">
+                                    <h4>{{eventItem?.item_master?.name}}</h4>
+                                    <p>{{eventItem?.item_master?.description}}</p>
+                                    <p class="price">${{eventItem?.current_rate}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row no-gutters" *ngIf="allAttendeesDetail?.attendees">
+                                <div class="col-lg-11 offset-lg-1">
+                                  <div class="selected-person clearfix">
+                                    <h4 class="name-of-guest">Shared with: </h4>
+                                    <ul>
+                                      <li *ngFor="let attendee of allAttendeesDetail?.attendees ">
+                                        <span>{{attendee.user.first_name}} {{attendee.user.last_name}}<i
+                                          class="fa fa-check-circle-o"></i></span></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-5">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="preference">
+                                    <h4 class="name-of-guest">Capacity of Room</h4>
+                                    <div class="capacity-number">
+                                      <span>{{allAttendeesDetail?.number_of_attendees}}</span> {{allAttendeesDetail?.number_of_attendees < 2 ? 'Person' : 'People'}}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </label>
+                        <div class="view-detail">
+                          <a data-toggle="collapse" role="button"
+                             aria-expanded="false"
+                             aria-controls="toggle-div" class="collapsed">
+
+                          </a>
+                          <!--<div class="toggle-div collapse" id="toggle-div">-->
+                          <!--<h4 class="title">Double Rooms</h4>-->
+                          <!--<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque-->
+                          <!--laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi-->
+                          <!--architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit-->
+                          <!--aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione-->
+                          <!--voluptatem sequi nesciunt.</p>-->
+                          <!--<div class="room-expand-amenities">-->
+                          <!--<h4 class="title">Amenities</h4>-->
+                          <!--<ul class="amenity-list">-->
+                          <!--<li>Mobile Check-In</li>-->
+                          <!--<li>Preferred Tee Times to Shadow Creek Golf Course</li>-->
+                          <!--<li>Resort Pool</li>-->
+                          <!--<li>Fitness Center</li>-->
+                          <!--<li>Panoramic Corner View</li>-->
+                          <!--<li>Entry Foyer</li>-->
+                          <!--<li>Dressing Area with Dual Closets and Granite-Top Dresser</li>-->
+                          <!--<li>Plush Robes</li>-->
+                          <!--<li>Laptop Size In-Room Safe</li>-->
+                          <!--<li>Fully-Stocked Intelligent Mini-Bar</li>-->
+                          <!--<li>Non-Smoking Room</li>-->
+                          <!--<li>42" HD LCD Television with Full Device Connectivity</li>-->
+                          <!--<li>10” Tablet to Control Light, Temperature, Request Butler Service and much more</li>-->
+                          <!--<li>Workstation with High-Speed Wired Connection</li>-->
+                          <!--<li>Connectivity Panel for Laptops, DVD Players, Gaming Consoles or MP3 Players</li>-->
+                          <!--<li>Resort-Wide 10MB Wi-Fi</li>-->
+                          <!--<li>Access to 2,000+ Electronic Newspapers</li>-->
+                          <!--<li>RFID Room Key</li>-->
+                          <!--<li>Custom Mattress with Triple-Sheeted, 300 Thread Count Linens</li>-->
+                          <!--<li>100% Cotton Bath Linens</li>-->
+                          <!--<li>Shower with Bench Adjacent to a Soaking Tub</li>-->
+                          <!--<li>Granite Dual Sink Vanity</li>-->
+                          <!--<li>Private Water Closet</li>-->
+                          <!--<li>1 Full Bathroom</li>-->
+                          <!--</ul>-->
+                          <!--</div>-->
+                          <!--</div>-->
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+                    <app-alert></app-alert>
+                  </div>
+                  <div class="next-btn clearfix">
+
+                    <button type='submit' class="link-btn float-right" [disabled]="formIsSubmitted">Book
+                      Transport<i class="fa fa-long-arrow-right"></i>
+                      <app-spinner [isLoading]="formIsSubmitted"></app-spinner>
+                    </button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

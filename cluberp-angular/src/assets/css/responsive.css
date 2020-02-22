@@ -1,0 +1,408 @@
+@charset "utf-8";
+/* CSS Document */
+@media (min-width:1200px) and (max-width:1365px) {
+.navbar-light .navbar-nav .nav-link {
+	padding: 29px 12px;
+	font-size: 13px;
+}
+}
+
+@media (max-width:1200px) {
+.tab-content .room-spec h4, .book-item .name-of-guest {
+	font-size: 14px;
+}
+#v-pills-tab .nav-link {
+	font-size: 13px;
+}
+.book-item div[class*="col-"] {
+	padding: 0;
+}
+.box-container .form-group .select select {
+	font-size: 12px;
+}
+.transportaion-form .form-group {
+	margin-bottom: 10px !important;
+}
+.tab-content .control-group label {
+	padding: 15px 10px;
+}
+.sidebar {
+	width: 215px;
+}
+.inner-wrapper {
+	margin-left: 230px;
+}
+.accordion {
+	padding: 0 15px;
+}
+.payment-type .nav-tabs .nav-link {
+	padding: 15px 10px;
+}
+}
+
+@media (max-width:990px) {
+.navbar {
+	padding: 0 15px;
+}
+.navbar-light .navbar-nav .nav-link {
+	padding: 10px 15px;
+	border-bottom: 1px solid #ccc;
+}
+.navbar-light .navbar-nav .nav-item .nav-link:before {
+	display: none;
+}
+.navbar-collapse {
+	border-top: 1px solid #ccc;
+}
+.top-header .top-contact li, .top-header .top-social-icon li, .top-header .top-log-btn li {
+	font-size: 12px;
+}
+.hero-section {
+	min-height: 40vh;
+}
+.hero-content h2 {
+	font-size: 28px;
+	line-height: 32px;
+}
+.hero-content p {
+	font-size: 16px;
+	margin: 15px 0;
+	line-height: 23px;
+}
+.page-top h2 {
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 15px;
+}
+.page-top nav {
+	text-align: center;
+}
+.page-top .breadcrumb {
+	float: none;
+	display: block;
+}
+.page-top .breadcrumb .breadcrumb-item {
+	font-size: 14px;
+	display: inline-block;
+}
+.tab-content .control-group .control__indicator {
+	margin: 0 auto;
+}
+.tab-content .thumbnail {
+	margin: 15px 0;
+}
+.tab-content .room-spec {
+	padding-left: 0;
+	text-align: center;
+}
+.book-item .name-of-guest {
+	display: block;
+	text-align: center;
+	font-size: 14px;
+}
+.selected-person ul {
+	display: block;
+	margin: 10px 0;
+	text-align: center;
+}
+.selected-person ul li {
+	margin: 2px 3px;
+}
+.next-btn {
+	text-align: center;
+}
+.next-btn .link-btn {
+	float: none !important;
+}
+.tab-content .control-group label {
+	padding: 20px 10px;
+}
+.payment-type .nav-tabs .nav-link {
+	font-size: 11px;
+	margin: 0 4px;
+	padding: 15px 5px;
+	text-align: center;
+}
+.payment-type .nav-tabs .nav-link .card-icon {
+	display: block;
+	margin: 0 auto;
+}
+.thankyou-inner-box {
+	padding: 0 15px;
+}
+.list-view table .action a {
+	margin: 0 0px;
+}
+.button-wrapper {
+	margin: 30px 0;
+	text-align: center;
+}
+.dropzone {
+    width: 96%;
+    
+}
+}
+
+@media (min-width:990px) and (max-width:1200px) {
+.navbar .form-inline .form-group .form-control {
+	width: 160px;
+}
+.navbar-light .navbar-nav .nav-link {
+	padding: 28px 8px;
+	font-size: 12px;
+}
+
+}
+
+@media (min-width:768px) and (max-width:990px) {
+}
+
+@media (min-width:320px) and (max-width:767px) {
+.tab-content .control-group label {
+	padding: 20px 10px;
+}
+}
+
+@media (max-width:767px) {
+.top-header .float-right {
+	float: none !important;
+	text-align: center;
+}
+.intro-section .inner-content h2 {
+	font-size: 19px;
+}
+.title h2 {
+	font-size: 22px;
+}
+.quote-section, .quote-section .quote-btn, .btn-wrapper, .testimonial-v-two .testimonial-title {
+	text-align: center !important;
+}
+.quote-section .quote-btn .btn, .btn-wrapper {
+	margin: 15px auto;
+}
+.testimonial-v-two .testimonial-title .title-top {
+	margin-bottom: 0;
+}
+.client-detail .card-body .amenity-list li, .amenity-list li {
+	width: 50%;
+}
+.sidebar {
+	width: 100%;
+	position: static;
+	overflow: inherit;
+}
+.mobile-layout {
+	padding-top: 0 !important;
+}
+.sidebar ul li {
+	display: inline-block;
+	position: relative;
+}
+.sidebar ul li .sub-menu {
+	position: absolute;
+	min-width: 172px;
+	top: 100%;
+	left: 0;
+	padding: 0;
+	z-index: 999;
+}
+.sidebar ul li .sub-menu > li::before, .sidebar ul li .sub-menu > li::after, .sidebar ul li .sub-menu > li > a::after {
+	display: none;
+}
+.sidebar ul li.no-link {
+	display: none;
+}
+.inner-wrapper {
+	margin-left: 20px;
+}
+.top-page .title {
+	padding: 15px 0;
+}
+.top-page .title h2 {
+	font-size: 15px;
+}
+.top-page .breadcrumb {
+	margin-left: 7px;
+	padding: 7px 7px;
+}
+.client-detail .card-body ul li b {
+	width: 150px;
+}
+.sidebar ul li a.collapsed::after {
+	content: "\f106";
+}
+.sidebar ul li a.dropdown-toggle::after {
+	right: 12px;
+	margin-top: -8px;
+}
+.payment-type .nav-tabs .nav-link {
+	font-size: 14px;
+	margin: 0 3px;
+	padding: 15px 10px;
+}
+.box-container .payment-type form div[class*="col-"] {
+	padding: 0;
+}
+.box-container form .form-group.footer-form {
+	padding: 15px 20px 15px 20px !important;
+}
+.box-container form .form-group.footer-form .text-right {
+	text-align: center !important;
+}
+.event-full-width .events-info {
+	padding: 15px 25px;
+}
+.event-full-width .events-info h3 {
+	font-size: 17px;
+}
+.event-full-width .events-info ul.events-detail li, .event-full-width .events-info ul.events-detail li i, .event-full-width .events-info p {
+	font-size: 13px;
+}
+.pagetop .view-icons {
+	margin-right: 5px;
+}
+.pagetop .btn {
+    padding: 5px 15px;
+   	
+}
+.mobile-employee-list li {
+    padding: 8px 12px;
+}
+.custom-table tbody tr td {
+    padding: 10px 5px;    
+}
+}
+
+@media (min-width:320px) and (max-width:580px) {
+.navbar-light .navbar-brand {
+	padding: 5px 10px 5px 0;
+	margin: 0 0 0 0;
+	width: 70px;
+}
+.control-group .control {
+	margin-right: 10px;
+}
+.client-detail .card-body .amenity-list li, .amenity-list li {
+	width: 100%;
+}
+.modal-dialog {
+	margin: 1.5rem;
+}
+.modal-footer {
+	justify-content: center;
+}
+.box-container .payment-type form .form-group .control {
+	margin: 0 3px 10px 0;
+}
+.review-listing .review-inner-wrap h5::after, .review-listing .review-inner-wrap::before, .review-listing .review-inner-wrap h5::before {
+	display: none;
+}
+.review-listing .review-inner-wrap h5, .client-detail .card-body .review-listing .review-inner-wrap ul {
+	padding: 0;
+}
+.client-detail .card-body .review-listing .review-inner-wrap .table {
+	margin: 0;
+	width: 100%;
+}
+.client-detail .card-body .review-listing .review-inner-wrap .transportation-review li span {
+	width: 100% !important;
+	display: block;
+}
+.review-listing {
+	text-align: center;
+}
+.client-detail .card-body .review-listing .review-inner-wrap .table {
+	margin: 0;
+	width: 100%;
+}
+.thankyou-box-container .button-wrapper .btn {
+	width: 170px;
+	margin: 5px auto;
+}
+.pagetop .col-lg-6{
+	text-align: left !important;
+}
+.mobile-employee-list li {
+	padding: 8px 10px;
+}
+	.custom-table tbody tr td span.initial-name-word {
+		display: inline-block;
+		/* margin: 3px auto; */
+		width: 25px;
+		height: 25px;
+		line-height: 25px;
+		margin: 0;
+	}
+	.custom-table tbody tr td  {
+		text-align: left;
+		font-size: 13px;
+	}
+}
+
+@media (max-width:480px) {
+.box-container form .booking-count .float-left {
+	float: none !important;
+}
+.add-btn {
+	justify-content: normal;
+	display: block;
+	flex-direction: inherit;
+	float: none !important;
+	margin: 15px 0;
+}
+.sidebar ul li.no-link {
+	display: none;
+}
+.sidebar ul li a {
+	padding: 10px 16px;
+	font-size: 11px;
+}
+.sidebar ul li a i {
+	display: none;
+}
+.client-detail .card-body ul li b, .client-detail .card-body ul li span {
+	width: 100%;
+	display: block;
+}
+.box-container .payment-type form .form-group .control {
+	margin: 0 3px 10px 0;
+}
+.discount-coupon .form-group .input-wrap {
+	border: none;
+	text-align: center;
+}
+.box-container .discount-coupon .form-group .form-control {
+	border: 1px solid #eef2f5;
+}
+.box-container .discount-coupon .form-group button {
+	position: static;
+	margin: 20px 0 0 0;
+}
+.review-listing .review-inner-wrap h5::after, .review-listing .review-inner-wrap::before, .review-listing .review-inner-wrap h5::before {
+	display: none;
+}
+.review-listing .review-inner-wrap h5, .client-detail .card-body .review-listing .review-inner-wrap ul {
+	padding: 0;
+}
+.client-detail .card-body .review-listing .review-inner-wrap .table {
+	margin: 0;
+	width: 100%;
+}
+.review-listing {
+	text-align: center;
+}
+.thankyou-box-container .button-wrapper .btn {
+	width: 170px;
+	margin: 5px auto;
+}
+.employee-wrapper {
+	padding: 5px 5px !important;
+	margin: 10px 0;	
+}
+
+.mobile-employee-list li {
+    padding: 3px 10px;
+    width: 48.3%;
+    text-align: left;
+}
+}

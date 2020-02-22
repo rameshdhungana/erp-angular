@@ -1,0 +1,92 @@
+<div class="inner-page">
+  <div class="page-top parallax events-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Events</h2>
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Events</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="events-section">
+    <div class="container">
+      <form (ngSubmit)="searchFilterEvents()" [formGroup]="searchForm">
+        <div class="row mb-5">
+          <div class="col-lg-5">
+            <label for="datepicker">Events From</label>
+            <input type="date"
+                   class="form-control"
+                   id="datepicker"
+                   formControlName="search_date">
+          </div>
+
+          <div class=" col-lg-5">
+            <label for="search">Search</label>
+            <input type="text" class="form-control" id="search" aria-describedby="search" formControlName="search_text"
+                   placeholder="Keyword">
+          </div>
+          <div class="col-lg-2" style="margin-top:1.8rem;">
+            <button type="submit" class="btn solid-btn" style="text-align:center;">Find Events</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div *ngFor="let event of filteredEventList.value;" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="events-col">
+            <div class="image-holder">
+              <a [routerLink]="['/events/detail/',event?.uuid]"><img
+                src="../../../../../../assets/images/restaurant.jpg"
+                alt="Image Not Found">
+              </a>
+              <span class="tag">{{event?.status}}</span>
+              <span class="share">
+								<a href="#" class="zmdi zmdi-share"></a>
+								<a href="#" class="zmdi zmdi-favorite-outline"></a>
+							</span>
+
+            </div>
+            <div class="events-info">
+              <h3><a [routerLink]="['/events/detail/',event?.uuid]">{{event?.title}}</a></h3>
+              <div class="events-date clearfix"><span>
+                <i class="zmdi zmdi-calendar-alt"></i>
+               <span
+                 *ngIf="event?.show_start_time">{{event?.start_date| date:'mediumDate'}}
+                </span>
+                 <span *ngIf="!event?.show_start_time">{{event?.start_date| date:'mediumDate'}}</span>
+                </span>
+                <span *ngIf="!event?.is_single_day_event">
+                  <span *ngIf="event?.show_end_time">{{event?.end_date| date:'mediumDate'}}
+                </span>
+              <span *ngIf="!event?.show_end_time">{{event?.end_date| date:'mediumDate'}}</span></span>
+              </div>
+              <p><span [innerHTML]="event?.summary | slice:0:150"></span> <span>....</span></p>
+              <div class="events-footer clearfix">
+                <span class="location float-left"><i class="zmdi zmdi-pin-drop"></i> {{event?.venue_location}}</span>
+                <span class="price float-right"><a class="btn-link text-underline text-primary"
+                                                   [routerLink]="['/events/detail',event?.uuid]">Register Here</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="pagination float-right">
+        <pagination [totalItems]="pagination.value['count']" [itemsPerPage]="pagination.value['page_size']"
+                    [rotate]="true" [maxSize]="10"
+                    (pageChanged)="pageChanged($event)"></pagination>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+

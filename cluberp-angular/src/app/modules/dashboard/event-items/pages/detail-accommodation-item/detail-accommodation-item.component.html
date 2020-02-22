@@ -1,0 +1,346 @@
+<app-spinner-overlay [isLoading]="loading"></app-spinner-overlay>
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Accommodation Item Detail</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active"> Accommodation Item Detail</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-6 text-right">
+    <a *ngIf="eventItemDetail?.accommodation_rooms.length < eventItemDetail?.item_capacity;"
+       (click)="modalService.OpenMediumModal(createRoomTemplate)"
+       class="btn btn-outline-primary  pull-right rounded"><i
+      class="fa fa-plus"></i> Create
+      Room </a>
+    <a (click)="downLoadEmptyExcelSheetForRoomAllocation()"
+       class="btn btn-outline-primary  pull-right rounded"><i
+      class="fa fa-download"></i> Download Empty Room Allocation Sheet </a>
+    <ng-template #createRoomTemplate>
+      <div class="modal-header text-ceneter">
+        <b class="modal-title">Create Room</b>
+        <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+        <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+      </div>
+      <div class="modal-body text-center">
+        <form (ngSubmit)="createRoom()" [formGroup]="roomCreationForm">
+          <div class="form-group form-row">
+            <label class="col-lg-12" for="title">Room Number<sup class="red-text">*</sup></label>
+            <input type="text" class="form-control col-lg-12" id="title" formControlName="room_number">
+            <app-control-messages [control]="roomCreationForm['controls']['room_number']"></app-control-messages>
+            <app-alert></app-alert>
+          </div>
+          <div class="form-group form-row">
+            <div class="col-6">
+              <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                class='black-text'>Cancel</span>
+              </button>
+
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-primary"
+                      [disabled]="createRoomButtonClicked"
+                      (click)="createRoom()">Confirm
+                <app-spinner [isLoading]="createRoomButtonClicked"></app-spinner>
+              </button>
+            </div>
+
+
+          </div>
+
+        </form>
+        <p><b>OR</b></p>
+        <form (ngSubmit)="uploadRoomCreationExcelSheet()" [formGroup]="roomCreationExcelSheetForm" class="mt-2 mb-4">
+          <div class=" col-lg-12">
+            <label for="room-creation-excel-file"><i
+              class="fa fa-upload"></i> Upload Room Creation Excel Sheet</label>
+            <input id='room-creation-excel-file' type="file" accept=".xls,.xlsx,.ods" fileread="" opts="vm.gridOptions"
+                   (change)="onFileChange($event,roomCreationExcelSheetForm)"
+                   multiple="false"/>
+
+            <button *ngIf="roomCreationExcelSheetForm['controls']['excel_sheet'].value" type="submit"
+                    class="btn btn-primary pt-1 pb-1 pl-2 pr-2" style="text-align:center;">
+              Upload
+            </button>
+            <button type="button" *ngIf="roomCreationExcelSheetForm['controls']['excel_sheet'].value"
+                    class="btn pt-1 pb-1 pl-2 pr-2 btn-warning"
+                    (click)="clearFile(roomCreationExcelSheetForm,'room_creation')">clear
+            </button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<!-- Page Top Wrapper End -->
+<div class="event-detail-list">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-md-12">
+          <h4>{{eventItemDetail?.item_master.name}} </h4>
+          <p>Created At <span>{{eventItemDetail?.created_at | date:'medium'}}</span></p>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-md-12">
+          <form (ngSubmit)="uploadExcelSheet()" [formGroup]="uploadExcelSheetForm" class="mt-2">
+            <div class=" col-lg-12">
+              <label for="excel-file"><i
+                class="fa fa-upload"></i> Upload Room Allocation Excel Sheet</label>
+              <input id='excel-file' type="file" accept=".xls,.xlsx,.ods" fileread="" opts="vm.gridOptions" #fileInput
+                     (change)="onFileChange($event,uploadExcelSheetForm)"
+                     multiple="false"/>
+
+              <button *ngIf="uploadExcelSheetForm['controls']['excel_sheet'].value" type="submit"
+                      class="btn btn-primary pt-1 pb-1 pl-2 pr-2" style="text-align:center;">
+                Upload
+              </button>
+              <button type="button" *ngIf="uploadExcelSheetForm['controls']['excel_sheet'].value"
+                      class="btn pt-1 pb-1 pl-2 pr-2 btn-warning"
+                      (click)="clearFile(uploadExcelSheetForm,'room_allocation')">clear
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <!--excel upload result data-->
+      <div class="card text-center" style="border:#215181 1px solid; border-radius:5px;"
+           *ngIf="roomAllocationSuccessful">
+        <div class="card-body">
+          <h4> Room Allocation Excel Upload Result
+          </h4>
+          <p class="text-info">Total Processing Attempts : <b>{{totalProcessing}}</b></p>
+          <p class="text-danger">Total Failure Attempts : <b>{{totalFailure}}</b></p>
+          <p class="text-success">Total Successful Attempts : <b>{{totalSuccess}}</b></p>
+
+          <p class="card-text mb-2 mt-2">Rooms have been allocated as per the excel sheet uploaded. Please download the
+            excel
+            sheet
+            containing result for future reference.(It is available only for now.) </p>
+
+          <a (click)="downloadRoomAllocationExcelUploadResult(roomAllocationSuccessExcelData)"
+             class="btn btn-primary pt-2 pb-2 pl-2 pr-2"><b>Download Result </b></a>
+        </div>
+      </div>
+
+      <!--room creation excel upload result data-->
+      <div class="card text-center" style="border:#215181 1px solid; border-radius:5px;"
+           *ngIf="roomCreationSuccessful">
+        <div class="card-body">
+          <h4> Room Creation Excel Upload Result
+          </h4>
+          <p class="text-info">Total Processing Attempts : <b>{{totalRoomCreationProcessing}}</b></p>
+          <p class="text-danger">Total Failure Attempts : <b>{{totalRoomCreationFailure}}</b></p>
+          <p class="text-success">Total Successful Attempts : <b>{{totalRoomCreationSuccess}}</b></p>
+
+          <p class="card-text mb-2 mt-2">Rooms have been created as per room numbers on excel sheet uploaded.
+            Please
+            download the
+            excel
+            sheet
+            containing result for future reference.(It is available only for now.) </p>
+
+          <a (click)="downloadRoomAllocationExcelUploadResult(roomCreationSuccessExcelData)"
+             class="btn btn-primary pt-2 pb-2 pl-2 pr-2"><b>Download Result </b></a>
+        </div>
+      </div>
+
+
+      <!-- room creation table and form-->
+      <div class="ptoject list employee-list-view mt-3">
+        <div class="user-list">
+          <table class="table table-striped user-table">
+            <thead>
+            <tr>
+              <th>Room Number</th>
+              <th>Attendee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let room of eventItemDetail?.accommodation_rooms;let inx=index">
+              <td><a (click)="modalService.OpenModal(editRoomNumberTemplate)"><i
+                class="pl-1 pr-1 mr-1 fa fa-pencil"></i></a>
+                <a (click)="modalService.OpenModal(deleteAcccommodationRoomTemplate)"><i
+                  class="pl-2 pr-1 mr-1 fa fa-trash"></i></a>{{room?.room_number}}
+              </td>
+              <ng-template #editRoomNumberTemplate>
+
+                <div class="modal-header text-center">
+                  <b class="modal-title">Edit Room Number</b>
+                  <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+                  <!--<span aria-hidden="true">&times;</span>-->
+                  <!--</button>-->
+                </div>
+                <div class="modal-body text-center">
+                  <form (ngSubmit)="editRoomNumber(room,inx)" [formGroup]="roomCreationForm">
+                    <div class="form-group form-row">
+                      <label class="col-lg-12" for="room_number">Room Number<sup class="red-text">*</sup></label>
+                      <input type="text" class="form-control col-lg-12" id="room_number"
+                             formControlName="room_number">
+                      <app-control-messages
+                        [control]="roomCreationForm['controls']['room_number']"></app-control-messages>
+                      <app-alert></app-alert>
+                    </div>
+                    <div class="form-group form-row">
+                      <div class="col-6">
+                        <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                          class='black-text'>Cancel</span>
+                        </button>
+
+                      </div>
+                      <div class="col-6">
+                        <button type="button" class="btn btn-primary"
+                                [disabled]="editRoomNumberButtonClicked"
+                                (click)="editRoomNumber(room,inx)">Confirm
+                          <app-spinner [isLoading]="editRoomNumberButtonClicked"></app-spinner>
+                        </button>
+                      </div>
+
+
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+              <ng-template #deleteAcccommodationRoomTemplate>
+                <div class="modal-header text-center">
+                  <b class="modal-title">Delete Accommodation Room</b>
+                  <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+                  <!--<span aria-hidden="true">&times;</span>-->
+                  <!--</button>-->
+                </div>
+                <div class="modal-body">
+                  <p class="font-italic">This will delete this accommodation room.
+
+
+                  </p>
+                  <p class="black-text">Are you sure to delete this accommodtion room ?</p>
+                  <div class="form-group form-row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                        class='black-text'>Cancel</span>
+                      </button>
+
+                    </div>
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary"
+                              [disabled]="deleteAccommodationRoomButtonClicked"
+                              (click)="deleteAccommodationRoom(room,inx)">Confirm
+                        <app-spinner [isLoading]="deleteAccommodationRoomButtonClicked"></app-spinner>
+                      </button>
+                    </div>
+
+
+                  </div>
+
+
+                </div>
+              </ng-template>
+
+
+              <td><span *ngIf="room?.event_attendee;else noAttendeeSpan;"> <a
+                (click)="modalService.OpenLargeModal(allocateRoomTemplate)"><i
+                class="pl-2 pr-1 mr-1  fa  fa-pencil"></i></a>
+
+               <a
+                 (click)="modalService.OpenModal(removeAllocatedAttendeeTemplate)"><i
+                 class="pl-2 pr-1 mr-1  fa  fa-trash"></i></a> {{room?.event_attendee?.user?.first_name}}
+                {{room?.event_attendee?.user?.last_name}}
+              </span>
+                <ng-template #noAttendeeSpan>
+                  <span>---</span><a (click)="modalService.OpenLargeModal(allocateRoomTemplate)"><i
+                  class="pl-2 pr-1 mr-1  fa  fa-plus-circle"></i></a>
+                </ng-template>
+
+              </td>
+              <ng-template #allocateRoomTemplate>
+                <div class="modal-header text-center">
+                  <b class="modal-title">Allocate Room To Attendee</b>
+                  <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+                  <!--<span aria-hidden="true">&times;</span>-->
+                  <!--</button>-->
+                </div>
+                <div class="modal-body">
+                  <form (ngSubmit)="allocateRoomToAttendee(room,inx)" [formGroup]="roomAllocationForm">
+                    <div class="form-group form-row">
+                      <label class="col-lg-12" for="title">Choose Attendee<sup class="red-text">*</sup></label>
+                      <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="event_attendee"
+                                           [multiple]="false"
+                                           class="col-lg-10" [config]="config"
+                                           [options]="attendeeListForRoomAllocation"></ngx-select-dropdown>
+                      <app-control-messages
+                        [control]="roomAllocationForm['controls']['event_attendee']"></app-control-messages>
+                      <app-alert></app-alert>
+                    </div>
+                    <div class="form-group form-row">
+                      <div class="col-6">
+                        <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                          class='black-text'>Cancel</span>
+                        </button>
+
+                      </div>
+                      <div class="col-6">
+                        <button type="button" class="btn btn-primary"
+                                [disabled]="allocateRoomButtonClicked"
+                                (click)="allocateRoomToAttendee(room,inx)">Confirm
+                          <app-spinner [isLoading]="allocateRoomButtonClicked"></app-spinner>
+                        </button>
+                      </div>
+
+
+                    </div>
+
+                  </form>
+                </div>
+              </ng-template>
+              <ng-template #removeAllocatedAttendeeTemplate>
+                <div class="modal-header text-center">
+                  <b class="modal-title">Remove Allocated Event Attendee</b>
+                  <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+                  <!--<span aria-hidden="true">&times;</span>-->
+                  <!--</button>-->
+                </div>
+                <div class="modal-body text-center">
+                  <p class="font-italic">This attendee will be removed from room allocation and room will be
+                    vacant again.
+
+
+                  </p>
+                  <p class="black-text">Are you sure to remove attendee from room allocation ?</p>
+                  <div class="form-group form-row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                        class='black-text'>Cancel</span>
+                      </button>
+
+                    </div>
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary"
+                              [disabled]="removeAllocatedAttendeeButtonClicked"
+                              (click)="removeAllocatedAttendee(room,inx)">Confirm
+                        <app-spinner [isLoading]="removeAllocatedAttendeeButtonClicked"></app-spinner>
+                      </button>
+                    </div>
+
+
+                  </div>
+
+
+                </div>
+              </ng-template>
+
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

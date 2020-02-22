@@ -1,0 +1,80 @@
+/******************************************
+Card Css Start
+******************************************/
+.event-detail-list {
+	background-color: #ffffff;  
+	margin-bottom: 60px;
+}
+
+.event-detail-list .card {
+	border: none;
+    border-radius: 0;
+}
+.card .card-header {
+	border: none;
+	padding-bottom: 20px;
+	margin-bottom: 0;
+	background-color: transparent;
+	border-bottom: 1px solid #ccc;
+}
+.event-detail-list .card .card-header .thumbnail {
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+	width: 100px;
+	vertical-align: middle;
+	border-radius: 0;
+	border: none;
+}
+.event-detail-list .card .card-header .thumbnail img {
+}
+.event-detail-list .card .card-header .card-holder-name {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 15px;
+}
+.event-detail-list .card .card-header .card-holder-name h2 {
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+.event-detail-list .card .card-header .card-holder-name h3 {
+	font-size: 18px;
+	font-weight: 300;
+	margin-bottom: 5px;
+}
+.event-detail-list .card .card-header .card-holder-name p {
+	font-weight: bold;
+}
+.event-detail-list .card .card-header .card-holder-name p span {
+	font-weight: normal;
+	color: #888484;
+}
+.event-detail-list .card .card-body {
+}
+.event-detail-list .card .card-body h4 {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.event-detail-list .card .card-body ul {/* border: 1px solid #ccc; *//* padding: 10px 15px 15px 15px; */
+}
+.event-detail-list .card .card-body ul li {
+	width: 46.5%;
+	display: inline-block;
+	margin-right: 30px;
+	padding: 7px 0;/* border-top: 1px solid #ccc; */
+}
+.event-detail-list .card .card-body ul li b {
+	width: 200px;
+	display: inline-block;
+}
+.event-detail-list .card .card-body ul li span {
+	float: right;
+}
+.seperator {
+    width: 35px;
+    height: 4px;
+    background-color: #2186c4;
+    display: block;
+    margin-top: 8px;
+}

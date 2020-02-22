@@ -1,0 +1,182 @@
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Arrival Departure Report</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active">Arrival Departure Report</li>
+      </ol>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-6 text-right">
+    <!--<a [routerLink]="['/admin/events/create']" class="btn btn-info rounded"><i-->
+    <!--class="fa fa-plus"></i> Add Event </a>-->
+    <a (click)="downArrivalDepartureReportExcelFile()"
+       class="btn btn-outline-primary  pull-right rounded"><i
+      class="fa fa-download"></i> Download Current Report(excel) </a>
+  </div>
+
+  <!--<div class="col-sm-6 col-lg-6 text-left mt-2">-->
+  <!--<b>Event:</b> Test Event-->
+  <!--</div>-->
+</div>
+
+<!-- Search form -->
+<form [formGroup]="arrivalAndDepartureDateTimeForm" (ngSubmit)="searchArrivalAndDepartureDateWise()">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-4">
+      <!--<input type="date"-->
+      <!--placeholder="Arrival Date"-->
+      <!--class="form-control"-->
+      <!--formControlName="arrival_datetime"-->
+      <!--bsDatepicker-->
+      <!--[bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"-->
+      <!--#arrivalDp="bsDatepicker">-->
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3">Arrival Date</span>
+        </div>
+        <input type="date" id="arrival_datetime" name="arrival_datetime" class="form-control"
+               formControlName="arrival_datetime"
+               placeholder="Arrival Date">
+      </div>
+      <!--<label for="arrival_datetime">Arrival Date</label>-->
+      <!--<input type="date" id="arrival_datetime" name="arrival_datetime" class="form-control"-->
+      <!--formControlName="arrival_datetime"-->
+      <!--placeholder="Arrival Date">-->
+
+
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-4">
+      <!--<input type="text"-->
+      <!--placeholder="Departure Date"-->
+      <!--class="form-control"-->
+      <!--formControlName="departure_datetime"-->
+      <!--bsDatepicker-->
+      <!--[bsConfig]="{ dateInputFormat: 'MMMM Do YYYY, h:mm:ss a' }"-->
+      <!--#departureDp="bsDatepicker">-->
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="b2">Departure Date</span>
+        </div>
+        <input type="date" id="departure_datetime" name="arrival_datetime" class="form-control"
+               formControlName="departure_datetime"
+               placeholder="Departure Date">
+      </div>
+
+
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 pull-right">
+      <button type="submit"
+              [disabled]="disableSearchButtonStatus()"
+              class="btn btn-primary" style="text-align:center;">Search DateWise
+      </button>
+      <button type="button" (click)="resetAllFilter()"
+              class="btn btn-warning" style="text-align:center;">Reset
+      </button>
+    </div>
+  </div>
+</form>
+
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-md-6 col-lg-4">
+    <div class="btn-group" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic">
+
+        {{pickUpLocationQueryParam['transportation_info__pickup_location__location'] === 'all' ? 'PickUp Location Filter' :
+        pickUpLocationQueryParam['transportation_info__pickup_location__location']}}
+        <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+          role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" (click)="filterAllPickUpLocation()">All</a></li>
+        <li *ngFor="let pickUpLocation of transportationPickUpLocationList;let inx=index;" role="menuitem"><a
+          class="dropdown-item"
+          (click)="filterOnPickUpLocation(pickUpLocation?.location)">{{pickUpLocation?.location}}</a></li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-4">
+    <div class="btn-group" dropdown>
+      <button id="button-basic2" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic">
+
+        {{eventItemQueryParam['item_master__name'] === 'all' ? 'Event Item Filter' :
+        eventItemQueryParam['item_master__name']}}
+        <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic2" *dropdownMenu class="dropdown-menu"
+          role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" (click)="filterAllEventItem()">All</a></li>
+        <li *ngFor="let name of itemMasterNameList;let inx=index;" role="menuitem"><a
+          class="dropdown-item"
+          (click)="filterOnEventItem(name)">{{name}}</a></li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-4">
+    <form onSubmit="return false;">
+      <input class="form-control form-control-md" type="text" placeholder="Search" aria-label="Search"
+             (keyup.enter)="search($event)">
+      <button type="button" class="hidden"></button>
+    </form>
+  </div>
+</div>
+
+<!-- Page Top Wrapper End -->
+<div class="ptoject list employee-list-view">
+  <div class="user-list">
+    <table class="table table-striped user-table">
+      <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Transportation Item</th>
+        <th>Arrival Date</th>
+        <th>Departure Date</th>
+        <th>PickUp Location</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of allArrivalAndDepartureReportList.value;">
+        <td>{{item?.event_attendee?.user?.first_name}} {{item?.user?.last_name}}</td>
+        <td>{{item?.event_attendee?.user?.email}}</td>
+        <td>{{item?.event_attendee?.user?.phone_number}}</td>
+
+        <td><a
+          [routerLink]="['/admin/events',eventUuid,'transportation-items',item?.event_item?.uuid]">{{item?.event_item?.item_master?.name}}</a>
+        </td>
+
+        <td>
+          {{item?.transportation_info?.arrival_datetime | date:'medium'}}
+        </td>
+        <td>
+          {{item?.transportation_info?.departure_datetime | date:'medium'}}
+        </td>
+        <td>
+          {{item?.transportation_info?.pickup_location?.location}}
+        </td>
+
+      </tr>
+
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="ps15">
+      <div class="row">
+        <div class="col-xs-12 col-12">
+          <pagination [totalItems]="pagination.value['count']" [itemsPerPage]="pagination.value['page_size']"
+                      [rotate]="true" [maxSize]="10"
+                      (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+

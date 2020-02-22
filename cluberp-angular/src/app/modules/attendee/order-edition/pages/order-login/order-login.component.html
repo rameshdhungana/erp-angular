@@ -1,0 +1,106 @@
+<div class="inner-page">
+  <div class="page-top parallax booking-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <!--					<h2>Transportation Booking Form</h2>-->
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item">Home
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Order Login</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <section class="register-section register-form-section">
+    <div class="container bg-white">
+
+      <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+
+          <!-- Icon -->
+          <div class="fadeIn first mb-2">
+            <img src="../../../../../../assets/images/Amaroo_logo.png" id="icon" alt="Amaroo Icon"/>
+          </div>
+          <!-- Login Form -->
+          <app-alert></app-alert>
+
+          <form [formGroup]="orderLoginForm" (ngSubmit)="orderLogin()">
+            <!--<div class="form-group col-lg-6">-->
+            <!--<label for="gender" class="form-label">Gender <span style="color:red">*</span></label>-->
+            <!--<div class="select">-->
+            <!--<select formControlName="gender" class="dropdown-select form-control" required>-->
+            <!--<option value="Male">Male</option>-->
+            <!--<option value="Female">Female</option>-->
+            <!--<option value="Other">Other</option>-->
+            <!--</select>-->
+            <!--<app-control-messages [control]="guestForm.controls['gender']"></app-control-messages>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="form-group pl-3 pr-3">
+              <!--<label class="form-label pull-left font-italic">Login by mobile number or phone</label>-->
+              <div class="select">
+                <select formControlName="option" class="form-control">
+                  <option value="email">Login by Email</option>
+                  <option value="phone_number">Login by Mobile Number</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="form['option'].value=='email'">
+              <!--<label for="login" class="text-left">Email<sup class="red-text">*</sup></label>-->
+              <input type="text" id="login" class="fadeIn second form-control" name="login"
+                     placeholder="enter email"
+                     formControlName="email">
+              <br>
+              <app-control-messages
+                [control]="form['email']"></app-control-messages>
+            </div>
+            <div class="form-group col-lg-6 mb20 text-center" *ngIf="form['option'].value=='phone_number'">
+              <!--<label for="phone_number">Phone Number <span style="color:red">*</span></label>-->
+              <ngx-intl-tel-input
+                [cssClass]="'form-control'"
+                [preferredCountries]="['au', 'np']"
+                [enablePlaceholder]="false"
+                id="phone_number"
+                formControlName="phone_number"></ngx-intl-tel-input>
+              <app-control-messages [control]="form['phone_number']"></app-control-messages>
+              <small *ngIf="form['phone_number'].touched && form['phone_number'].invalid"
+                     class="text-danger">
+                Invalid Mobile Number
+              </small>
+            </div>
+
+            <div class="form-group">
+
+              <!--<label for="confirmation_code">Confirmation Code<sup class="red-text">*</sup></label>-->
+              <input type="text" id="confirmation_code" class="fadeIn third form-control" name="confirmation_code"
+                     placeholder="confirmation code"
+                     formControlName="confirmation_code">
+              <br>
+
+              <app-control-messages
+                [control]="form['confirmation_code']"></app-control-messages>
+            </div>
+            <input type="submit" class="fadeIn fourth" value="Log In">
+            <!--<div class="form-group">-->
+            <!--<button type="submit" class="btn btn-primary btn-block" [disabled]="formIsSubmitted">Log In-->
+            <!--<app-spinner [isLoading]="formIsSubmitted"></app-spinner>-->
+            <!--</button>-->
+            <!--</div>-->
+
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

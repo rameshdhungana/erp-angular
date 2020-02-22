@@ -1,0 +1,280 @@
+<div class="inner-page">
+  <app-spinner-overlay [isLoading]="loading"></app-spinner-overlay>
+  <div class="page-top parallax booking-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <!--					<h2>Transportation Booking Form</h2>-->
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item">Home
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Cart Summary</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="register-section register-form-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="box-container">
+            <div class="form-title no-margin">
+              <h3><span class="count-number">5</span>Cart Summary</h3>
+            </div>
+            <form class="row">
+              <div class="form-group control-group bg-light booking-count col-lg-12">
+                <label class="form-label">No .of Attendees: {{numberOfAttendees.value}} </label>
+                <span></span>
+              </div>
+            </form>
+            <div class="container pb-3" *ngIf="registrationCartItemList.value?.length">
+              <div class="title-tab-header"><h5 class="pt-2"> Registration Fee</h5>
+              </div>
+              <div class="table-responsive">
+
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Registrant</th>
+                    <th scope="col">Registered For</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Net Amount To Pay</th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let cartItem of registrationCartItemList.value; let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{cartItem?.item_master?.name}} {{cartItem?.item_master?.name}}</td>
+                    <td>{{cartItem?.ordered_by_user?.first_name}} {{cartItem?.ordered_by_user?.last_name}}</td>
+                    <td>{{cartItem?.user.first_name}} {{cartItem?.user.last_name}}</td>
+                    <td>{{cartItem?.quantity}}</td>
+                    <td>${{cartItem?.rate}}</td>
+                    <td>${{cartItem?.discount}}</td>
+                    <td>${{cartItem?.amount_net | convertToTwoFixedDecimal}}</td>
+
+                  </tr>
+
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <td><b>Total</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><b>${{ generateTotalAmount(registrationCartItemList.value)}}</b></td>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="container pb-3" *ngIf="accommodationCartItemList.value?.length">
+              <div class="title-tab-header"><h5 class="pt-2"> Accommodation </h5>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Registrant</th>
+                    <th scope="col">Registered For</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Net Amount To Pay</th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let cartItem of accommodationCartItemList.value; let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{cartItem?.item_master?.name}} {{cartItem?.item_master?.name}}</td>
+
+                    <td>{{cartItem?.ordered_by_user?.first_name}} {{cartItem?.ordered_by_user?.last_name}}</td>
+                    <td>Shared</td>
+                    <td>{{cartItem?.quantity}}</td>
+                    <td>${{cartItem?.rate}}</td>
+                    <td>${{cartItem?.discount}}</td>
+                    <td>${{cartItem?.amount_net | convertToTwoFixedDecimal}}</td>
+                  </tr>
+
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <td>
+                      <b>Total
+                      </b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <b>${{ generateTotalAmount(accommodationCartItemList.value)}}</b>
+                    </td>
+
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="container pb-3" *ngIf="transportationCartItemList.value?.length">
+              <div class="title-tab-header"><h5 class="pt-2"> Transportation</h5>
+              </div>
+              <div class="table-responsive">
+
+
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Registrant</th>
+                    <th scope="col">Registered For</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Net Amount To Pay</th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let cartItem of transportationCartItemList.value; let i=index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{cartItem?.item_master?.name}} {{cartItem?.item_master?.name}}</td>
+                    <td>{{cartItem?.ordered_by_user?.first_name}} {{cartItem?.ordered_by_user?.last_name}}</td>
+                    <td>{{cartItem?.user.first_name}} {{cartItem?.user.last_name}}</td>
+                    <td>{{cartItem?.quantity}}</td>
+                    <td>${{cartItem?.rate}}</td>
+                    <td>${{cartItem?.discount}}</td>
+                    <td>${{cartItem?.amount_net | convertToTwoFixedDecimal}}</td>
+                  </tr>
+
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <td><b>Total</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <b>${{ generateTotalAmount(transportationCartItemList.value)}}</b>
+                    </td>
+
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="title-tab-header"><h5 class="pt-2"> Overall Summary</h5>
+              </div>
+              <div class="table-responsive" style="width:100%">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Total Amount</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngIf="registrationCartItemList.value.length">
+                    <td>Registration</td>
+                    <td>${{ generateTotalAmount(registrationCartItemList.value)}}</td>
+                  </tr>
+                  <tr *ngIf="accommodationCartItemList.value.length">
+                    <td>Accommodation</td>
+                    <td>${{ generateTotalAmount(accommodationCartItemList.value)}}</td>
+                  </tr>
+
+                  <tr *ngIf="transportationCartItemList.value.length">
+                    <td>Transportation</td>
+                    <td>${{ generateTotalAmount(transportationCartItemList.value)}}</td>
+                  </tr>
+                  <tr *ngFor="let couponItem of couponCartItemList.value;" class="bg-warning">
+                    <td>{{couponItem?.coupon?.type}}
+                      <span *ngIf="couponItem?.coupon?.type !=='Senior-Citizen-Discount'">
+                        ({{couponItem?.coupon?.coupon_code}})
+                      </span>
+                    </td>
+                    <td>$ {{couponItem?.amount_net | convertToTwoFixedDecimal}}
+                      <button class="pull-right btn btn-danger btn-sm pl-3 pr-3 rounded pt-2 pb-2"
+                              [disabled]="removeCouponButtonClicked"
+                              (click)="removeCouponFromCart(couponItem?.uuid)"
+                              *ngIf="couponItem?.coupon?.type !=='Senior-Citizen-Discount' "><b>Remove</b>
+
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr *ngFor="let taxItem of serviceChargeAndTaxItemList.value;">
+                    <td>{{taxItem?.item_master?.name}}</td>
+                    <td>${{taxItem?.amount_net | convertToTwoFixedDecimal}}</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <td><b>Total Amount To Pay</b></td>
+                    <td><b>${{ finalAmountToPay.value}}</b></td>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+            </div>
+            <div class="container">
+              <div class="title-tab-header"><h5 class="pt-2"> Coupon Code</h5>
+              </div>
+              <span>Note: If you have multiple coupons , apply it turn by
+                  turn.</span>
+              <app-alert></app-alert>
+              <form class='form-inline mt-2' (ngSubmit)="applyCouponCode()" [formGroup]="couponForm">
+
+                <div class="form-group mt-2 ">
+                  <input type="text" class="form-control " id="coupon-code" placeholder="Enter Coupon Code"
+                         formControlName="coupon_code">
+                  <button type="submit" class="btn btn-primary mt-sm-1 " [disabled]="applyCouponButtonClicked">Apply
+                    <app-spinner [isLoading]="applyCouponButtonClicked"></app-spinner>
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+
+            <div class="next-btn clearfix mt-4">
+              <button type="submit" class="link-btn" (click)="backEditRedirect()"><i
+                class="fa fa-long-arrow-left"></i>
+                Back To Edit
+              </button>
+              <button (click)="finalAmountToPay.value>0  ? openPaymentCheckout() : confirmOrderWithoutPayment()"
+                      [disabled]="confirmOrderButtonClicked"
+                      class="link-btn float-right mr-5">{{finalAmountToPay.value > 0 ? 'Make Payment and Confirm Order' : 'Confirm Order' }}
+                <app-spinner [isLoading]="confirmOrderButtonClicked"></app-spinner>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!--TODO logic to : not to allow more discount using coupons than total payment ie. total amount to pay should not be less shown as less than zero-->

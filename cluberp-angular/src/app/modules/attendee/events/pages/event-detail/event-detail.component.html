@@ -1,0 +1,386 @@
+<div class="inner-page">
+  <div class="page-top parallax events-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>{{eventDetail?.title}}</h2>
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item">Home
+              </li>
+              <li class="breadcrumb-item">Events
+              </li>
+              <!--<li class="breadcrumb-item active" aria-current="page">{{event}}</li>-->
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="events-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="event-detail events-col">
+            <div class="image-holder">
+              <img src="../../../../../../assets/images/city_1_png.png" alt="Image Not Found">
+            </div>
+            <div class="events-info">
+              <h3>{{eventDetail?.title}}</h3>
+              <div class="events-date clearfix"><span><i
+                class="zmdi zmdi-calendar-alt"></i>
+                <span
+                  *ngIf="eventDetail?.show_start_time">{{eventDetail?.start_date| date:'medium'}}
+                </span>
+                 <span *ngIf="!eventDetail?.show_start_time">{{eventDetail?.start_date| date:'fullDate'}}</span>
+                </span>
+                <span *ngIf="!eventDetail?.is_single_day_event">
+                  <span *ngIf="eventDetail?.show_end_time">{{eventDetail?.end_date| date:'medium'}}
+                </span>
+              <span *ngIf="!eventDetail?.show_end_time">{{eventDetail?.end_date| date:'fullDate'}}</span></span>
+              </div>
+              <div class="row mt-3">
+                <div class="col-sm-6 block" *ngIf="eventDetail">
+                  <a [routerLink]="['/events/order/login/',eventDetail?.uuid]" class="btn link mb10">View
+                    Registration</a>
+                </div>
+                <div class="col-sm-6 block" *ngIf="eventDetail">
+
+                  <a [routerLink]="['/events/registration/personnel-detail/',eventDetail?.uuid]" class="btn solid-btn">Register
+                    Now</a>
+                </div>
+              </div>
+              <!--<div [innerHTML]="eventDetail?.description"></div>-->
+
+              <div class="site-inner">
+                <div class="content-sidebar-wrap no-boxed-children">
+                  <main class="content content-no-sidebars" id="genesis-content">
+                    <article class="post-364 page type-page status-publish entry" itemscope=""
+                             itemtype="https://schema.org/CreativeWork">
+                      <div class="entry-content" itemprop="text">
+                        <section class="section" style="background-color: #f9f9f9; padding-top:0 !important;">
+                          <div class="wrap height-md center-xs">
+                            <div class="section-content width-md">You are invited to a Positive Peace Workshop in
+                              Queensland, hosted by The Institute of Economics and Peace (IEP) together with Ivory’s
+                              Rock Foundation (IRF). It will be held on the weekend of 23rd &amp; 24th August 2019
+                              (dates to be confirmed) at Ivory’s Rock.
+                              <br>
+                              This highly engaging workshop will focus on practical efforts to build positive peace
+                              in communities, including a session on the importance of personal peace. IEP has
+                              collaborated with a number of organisations around the world to deliver similar
+                              workshops.<br>
+                              The workshop will be held at Ivory’s Rock Conventions and Events, Peak Crossing. Qld
+                              4306, less than an hour out of Brisbane. This is a unique and world class convention
+                              centre which has a conference hall, accomodation and dining.
+                            </div>
+                          </div>
+                        </section>
+                        <section class="section" style="background-color: #f0f0f0; padding-bottom:0 !important;">
+                          <div class="wrap height-auto has-width-full center-xs">
+                            <div class="section-content width-full">
+                              <div class="columns-shortcode row gutter-none">
+                                <div class="flex-entry col col-xs-12 col-sm column has-bg-image aspect-ratio"
+                                     data-aspect-width="800" data-aspect-height="600" style="min-height: 400px;"><img
+                                  src="https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/Girl_Meeting-800x600.jpg"
+                                  class="bg-image" alt=""
+                                  srcset="https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/Girl_Meeting-800x600.jpg 800w, https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/Girl_Meeting-550x413.jpg 550w, https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/Girl_Meeting-260x195.jpg 260w"
+                                  sizes="(max-width: 800px) 100vw, 800px" width="800" height="600"></div>
+                                <div class="flex-entry col col-xs-12 col-sm column top-xs center-xs text-xs-left ">
+                                  <div>
+                                    <h3 style="text-align: center;">Overview</h3>
+                                    The IEP framework for Positive Peace is based on eight pillars which not only
+                                    sustain peace but also support an environment where human potential can flourish.
+                                    IEP will introduce these eight positive pillars of peace and explore their
+                                    application during the workshop<br>
+                                    The IRF framework for personal peace focuses on inner resources such as clarity,
+                                    choice, understanding, courage and hope and how to develop these inner strengths.
+                                    Participants will be encouraged to share their own personal experiences.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                        <section class="section" style="background-color: #ededed; padding-top:0 !important;">
+                          <div class="wrap height-md center-xs">
+                            <div class="section-content width-md" style="padding-left:5rem; padding-right:5rem;"><h3
+                              style="text-align: left; color:#1e73be;">Workshop objectives and
+                              outcomes:</h3>
+                              The workshop will provide participants with:<br>
+                              1. A thorough understanding of the IEP Pillars of Positive Peace and how to build on the
+                              pillars to create and sustain peaceful, cohesive communities.<br><br>
+                              2. An understanding of the importance of personal peace and recognition of natural
+                              attributes such as clarity, gratitude and hope and how to focus on developing these
+                              natural attributes (or inner strengths) accessing resources such as PEAK.
+                            </div>
+                          </div>
+                        </section>
+                        <section class="section" style="background-color: #f0f0f0;">
+                          <div class="wrap height-auto center-xs text-xs-left">
+                            <div class="section-content">
+                              <div class="columns-shortcode row gutter-xl middle-xs top-xs-xl bottom-xs-sm">
+                                <div class="flex-entry col col-xs-12 col-sm column middle-xs center-xs text-xs-center"
+                                     style="padding-left:3rem;padding-right:3rem;">
+                                  <h3 style="color:#1e73be">IEP Pillars of Positive Peace</h3>
+                                  <p><a
+                                    href="https://www.positivepeace.bardonstudios.com.au/institute-for-economics-and-peace/">
+                                    <span style="color:green;">To read more…</span></a>
+                                </div>
+                                <div class="flex-entry col col-xs-12 col-sm">
+                                  <div class="fluid-width-video-wrapper" style="padding-top:2rem;">
+                                    <iframe src="https://www.youtube.com/embed/xXnQ762shFs?feature=oembed"
+                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen="" name="fitvid0" frameborder="0"></iframe>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                        <section class="section">
+                          <div class="wrap height-md center-xs">
+                            <div class="section-content">
+                              <div class="columns-shortcode row gutter-xl">
+                                <div class="flex-entry col col-xs-12 col-sm column has-bg-image aspect-ratio"
+                                     data-aspect-width="800" data-aspect-height="600" style="min-height: 300px;"><img
+                                  src="https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/180910_Amaroo_BROLL_dmp_008-1-800x600.jpg"
+                                  class="bg-image" alt=""
+                                  srcset="https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/180910_Amaroo_BROLL_dmp_008-1-800x600.jpg 800w, https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/180910_Amaroo_BROLL_dmp_008-1-550x413.jpg 550w, https://www.positivepeace.bardonstudios.com.au/wp-content/uploads/2019/05/180910_Amaroo_BROLL_dmp_008-1-260x195.jpg 260w"
+                                  sizes="(max-width: 800px) 100vw, 800px" width="800" height="600"></div>
+                                <div
+                                  class="flex-entry col col-xs-12 col-sm column top-xs center-xs text-xs-left container">
+                                  <div>
+                                    <h4 style="text-align: center;">Ivory’s Rock Conventions and Events</h4>
+                                    Situated less than an hour from Brisbane in the beautiful Scenic Rim lies this
+                                    unique conference facility in a natural bush setting.
+                                    <br><a href="https://www.positivepeace.bardonstudios.com.au/ivorys-rock/">Find out
+                                    more ….</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                    </article>
+                  </main>
+                </div>
+              </div>
+              <accordion>
+                <accordion-group class="mb-3">
+                  <h5 accordion-heading (click)="toggleRegistration()">
+                    REGISTRATION
+                    <span class="float-right text-secondary"><i
+                      class="{{registrationToggle?'fa fa-angle-double-down':'fa fa-angle-double-up'}}"></i></span>
+                  </h5>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">SN</th>
+                        <th scope="col">CONFERENCE FEES</th>
+                        <th scope="col">Price Early Bird (inc. GST)</th>
+                        <th scope="col">Regular price (inc GST)</th>
+
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let eventItem of registrationItemList; let i=index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td>{{eventItem?.item_master.name }}</td>
+                        <td>${{eventItem?.early_bird_rate }}</td>
+                        <td>${{eventItem?.late_bird_rate}}</td>
+
+                      </tr>
+
+                      </tbody>
+
+                    </table>
+                  </div>
+
+
+                </accordion-group>
+
+                <accordion-group class="mt-3 mb-3">
+                  <h5 accordion-heading (click)="toggleAccommodation()">
+                    ACCOMMODATION
+                    <span class="float-right text-secondary"><i
+                      class="{{accommodationToggle?'fa fa-angle-double-down':'fa fa-angle-double-up'}}"></i></span>
+
+                  </h5>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">SN</th>
+                        <th scope="col">ACCOMMODATION FEES</th>
+                        <th scope="col">Price Early Bird (inc. GST)</th>
+                        <th scope="col">Regular price (inc GST)</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let eventItem of accommodationItemList; let i=index">
+                        <th scope="row">{{i + 1 }}</th>
+                        <td>{{eventItem?.item_master.name }}</td>
+                        <td>${{eventItem?.early_bird_rate }}</td>
+                        <td>${{eventItem?.late_bird_rate}}</td>
+
+                      </tr>
+
+                      </tbody>
+
+                    </table>
+                  </div>
+
+
+                </accordion-group>
+                <accordion-group class="mt-3 mb-3">
+                  <h5 accordion-heading (click)="toggleTransportation()">
+                    TRANSPORTATION
+                    <span class="float-right text-secondary"><i
+                      class="{{transportationToggle?'fa fa-angle-double-down':'fa fa-angle-double-up'}}"></i></span>
+
+                  </h5>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">SN</th>
+                        <th scope="col"> TRANSPORTATION (per person)</th>
+                        <th scope="col">Price Early Bird (inc. GST)</th>
+                        <th scope="col">Regular price (inc GST)</th>
+
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let eventItem of transportationItemList; let i=index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td>{{eventItem?.item_master.name }}</td>
+                        <td>${{eventItem?.early_bird_rate }}</td>
+                        <td>${{eventItem?.late_bird_rate}}</td>
+
+                      </tr>
+
+                      </tbody>
+
+                    </table>
+                  </div>
+
+
+                </accordion-group>
+
+
+              </accordion>
+              <div class="row mt-3 mb-3" *ngIf="eventDetail">
+                <div class="col-sm-6 block">
+                  <a [routerLink]="['/events/order/login',eventDetail?.uuid]" class="btn link mb10">View
+                    Registration</a>
+                </div>
+                <div class="col-sm-6 block">
+
+                  <a [routerLink]="['/events/registration/personnel-detail',eventDetail?.uuid]" class="btn solid-btn">Register
+                    Now</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="block block-address">
+            <h5>Date & Time</h5>
+            <span *ngIf="eventDetail?.show_start_time">{{eventDetail?.start_date| date:'medium'}}
+                </span>
+            <span *ngIf="!eventDetail?.show_start_time">{{eventDetail?.start_date| date:'fullDate'}}</span>
+            <p *ngIf="!eventDetail?.is_single_day_event">
+              <span class="text-center">To</span>
+              <span *ngIf="eventDetail?.show_end_time">{{eventDetail?.end_date| date:'medium'}}
+                </span>
+              <span *ngIf="!eventDetail?.show_end_time">{{eventDetail?.end_date| date:'fullDate'}}</span>
+            </p>
+
+            <h5>Location</h5>
+            <p>{{eventDetail?.venue_location}}</p>
+            <!--<a href="#" class="link">View Map</a>-->
+          </div>
+          <div class="block" *ngIf="eventDetail">
+            <a [routerLink]="['/events/order/login',eventDetail?.uuid]" class="btn link mb10">View
+              Registration</a>
+            <a [routerLink]="['/events/registration/personnel-detail',eventDetail?.uuid]" class="btn solid-btn">Register
+              Now</a>
+          </div>
+          <!--<div class="block">-->
+          <!--<h4 class="block-title">Categories</h4>-->
+          <!--<ul class="list">-->
+
+          <!--<li><a href="#">Photography</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Web Design</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Lifestyle</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Responsive</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">MultiPurpose Theme</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Agency</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Portfolio</a>-->
+          <!--</li>-->
+
+          <!--</ul>-->
+          <!--</div>-->
+          <div class="block news-list">
+            <h4 class="block-title">Other Events</h4>
+            <ul>
+              <li *ngFor="let event of otherEventList;">
+                <div class="news-content"><span class="thumbnail"><a [routerLink]="['events/detail/', event?.uuid]"><img
+                  src="../../../../../../assets/images/20.jpg"
+                  alt=""></a></span>
+                  <h4 class="news-title"><a [routerLink]="['/events/detail',event?.uuid]">{{event?.title}}</a></h4>
+                  <span class="post"><span class="date">
+                    <i class="fa fa-calendar"></i>
+                    {{event?.start_date| date:'dd/MM/yyy' }} -
+                       <span *ngIf="!eventDetail?.is_single_day_event"></span>
+                    {{event?.end_date| date:'dd/MM/yyy' }}
+
+                </span>
+                  </span>
+                  <p *ngIf="event?.summary"><span [innerHTML]="event?.summary | slice:0:62"></span><span> ....</span>
+                  </p>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+          <!--<div class=" block">-->
+          <!--<h4 class="block-title">Popular Tags</h4>-->
+          <!--<ul class="widget-tag">-->
+          <!--<li><a href="#">Art</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Business</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Design</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Graphic</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">fashion</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Model</a>-->
+          <!--</li>-->
+          <!--<li><a href="#">Photography</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</div>-->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+

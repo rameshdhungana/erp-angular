@@ -1,0 +1,103 @@
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Events List</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active">Events List</li>
+      </ol>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-6 text-right"><a [routerLink]="['/admin/events/create']" class="btn btn-info rounded"><i
+    class="fa fa-plus"></i> Create Event </a></div>
+</div>
+
+
+<!-- Search form -->
+<div class="row page-top-wrapper">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <div class="btn-group" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic">
+        {{selectedFilter ? selectedFilter : 'All'}} <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+          role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" (click)="filterEventList(null,'All')">All</a></li>
+        <li role="menuitem"><a class="dropdown-item" (click)="filterEventList({'is_published':true},'Published')">Published</a>
+        </li>
+        <li role="menuitem"><a class="dropdown-item" (click)="filterEventList({'is_published':false},'UnPublished')">UnPublished</a>
+        </li>
+        <li role="menuitem"><a class="dropdown-item" (click)="filterEventList({'status':'Open'},'Open')">Open</a></li>
+        <li role="menuitem"><a class="dropdown-item" (click)="filterEventList({'status':'Closed'},'Closed')">Closed</a>
+        </li>
+        <li role="menuitem"><a class="dropdown-item" (click)="filterEventList({'status':'Paused'},'Paused')">Paused</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <form onSubmit="return false;">
+      <input class="form-control form-control-md" type="text" placeholder="Search" aria-label="Search"
+             (keyup.enter)="searchEvent($event)">
+      <button type="button" class="hidden"></button>
+    </form>
+  </div>
+</div>
+<!-- Page Top Wrapper End -->
+<div class="ptoject list employee-list-view">
+  <div class="user-list">
+    <table class="table table-striped user-table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Organiser</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Publish</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let event of eventList.value;let inx=index">
+        <a [routerLink]="['/admin/events',event.uuid]">
+          <td>{{event?.title | slice:0:20}}</td>
+        </a>
+        <td>{{event?.organizer.name}}</td>
+        <td>{{event?.start_date | date:'medium'}} - {{event?.end_date | date:'medium'}}</td>
+        <td>
+          {{event?.status}}
+
+        </td>
+
+        <td>
+          <span *ngIf="event?.is_published" class="text-success">True</span>
+          <span *ngIf='!event?.is_published' class="text-danger">False</span>
+
+        </td>
+        <td>
+          <div class="action">
+            <a [routerLink]="['/admin/events',event.uuid]" data-toggle="tooltip" data-placement="top"
+               title="View Detail"><i class="fa fa-eye"></i></a>
+            <a [routerLink]="['/admin/events',event.uuid,'edit']" data-toggle="tooltip" data-placement="top"
+               title="Edit"><i class="fa fa-edit"></i></a>
+            <a href="#" data-toggle="tooltip" data-placement="top"
+               title="Delete"><i class="fa fa-trash-o"></i></a>
+          </div>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="ps15">
+      <div class="row">
+        <div class="col-xs-12 col-12">
+          <pagination [totalItems]="pagination.value['count']" [itemsPerPage]="pagination.value['page_size']"
+                      [rotate]="true" [maxSize]="10"
+                      (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

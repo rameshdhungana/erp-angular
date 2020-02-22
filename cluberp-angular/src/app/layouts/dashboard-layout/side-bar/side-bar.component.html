@@ -1,0 +1,24 @@
+<aside class="dashboard-sidebar" id="sidebar">
+  <div id="sidebar-wrapper">
+    <ul class="list-unstyled components">
+      <li>
+        <a [routerLink]="['/users/']" class="userinfo">
+          <span class="userlogo"><img src="../../../../assets/images/user-logo.png" alt="User Logo"></span>
+          <span class="username">Welcome to Dashboard</span>
+          <span>{{todayDate | date:'dd MMM  yyyy'}}</span>
+        </a>
+      </li>
+      <li><a [routerLink]="['/dashboard']"><i class="fa fa-th-large"></i>Dashboard</a></li>
+      <li><a [routerLink]="['/users/list']"><i class="fa fa-user"></i>Users</a></li>
+      <!--<li><a [routerLink]="['/staffs/list']"><i class="fa fa-users"></i>Staffs</a></li>-->
+      <!--<li><a [routerLink]="['/event-attendees/list']"><i class="fa fa-users"></i>Event Attendees</a></li>-->
+      <li><a [routerLink]="['/admin/events/list']"><i class="fa fa-calendar"></i>Events</a></li>
+      <!--<li><a [routerLink]="['/event-types/list']"><i class="fa fa-suitcase"></i>Event Types</a></li>-->
+      <!--<li><a [routerLink]="['/event-categories/list']"><i class="fa fa-sitemap"></i>Event Categories</a></li>-->
+      <!--<li><a [routerLink]="['/organizers/list']"><i class="fa fa-file-image-o"></i>Organizers</a></li>-->
+      <li><a [routerLink]="['/groups/list']"><i class="fa fa-cubes"></i>Groups</a></li>
+      <li><a [routerLink]="['/configurations/list']"><i class="fa fa-gear"></i>Configurations</a></li>
+      <li><a [routerLink]="['/auth/logout']"><i class="fa fa-sign-out"></i>LogOut</a></li>
+    </ul>
+  </div>
+</aside>

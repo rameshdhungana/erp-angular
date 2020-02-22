@@ -1,0 +1,174 @@
+<app-spinner-overlay [isLoading]="loading"></app-spinner-overlay>
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Transportation Item Detail</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active"> Transportation Item Detail</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-6 text-right">
+    <a (click)="modalService.OpenMediumModal(createPickUpLocationTemplate)"
+       class="btn btn-outline-primary  pull-right rounded"><i
+      class="fa fa-plus"></i> Create
+      PickUp Location </a>
+    <ng-template #createPickUpLocationTemplate>
+      <div class="modal-header text-ceneter">
+        <b class="modal-title">Create PickUp Location</b>
+        <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+        <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+      </div>
+      <div class="modal-body text-center">
+        <form (ngSubmit)="createPickupLocation()" [formGroup]="pickUpLocationForm">
+          <div class="form-group form-row">
+            <label class="col-lg-12" for="title">Location Name<sup class="red-text">*</sup></label>
+            <input type="text" class="form-control col-lg-12" id="title" formControlName="location">
+            <app-control-messages [control]="pickUpLocationForm['controls']['location']"></app-control-messages>
+            <app-alert></app-alert>
+          </div>
+          <div class="form-group form-row">
+            <div class="col-6">
+              <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                class='black-text'>Cancel</span>
+              </button>
+
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-primary"
+                      [disabled]="createPickUpLocationButtonClicked"
+                      (click)="createPickupLocation()">Confirm
+                <app-spinner [isLoading]="createPickUpLocationButtonClicked"></app-spinner>
+              </button>
+            </div>
+
+
+          </div>
+
+        </form>
+      </div>
+    </ng-template>
+
+  </div>
+</div>
+<!-- Page Top Wrapper End -->
+<div class="event-detail-list">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 col-md-12">
+          <h4>{{eventItemDetail?.item_master.name}} </h4>
+          <p>Created At <span>{{eventItemDetail?.created_at | date:'medium'}}</span></p>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-md-12">
+
+
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <!-- room creation table and form-->
+      <div class="ptoject list employee-list-view mt-3">
+        <div class="user-list">
+          <table class="table table-striped user-table">
+            <thead>
+            <tr>
+              <th>Pick Up Location</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pickUpLocation of eventItemDetail?.transportation_pickup_locations;let inx=index">
+              <td>{{pickUpLocation?.location}}
+              </td>
+              <td><a (click)="modalService.OpenModal(editPickUpLocationTemplate)"><i
+                class="pl-1 pr-1 mr-1 fa fa-pencil"></i></a>
+                <a (click)="modalService.OpenModal(deletePickUpLocationTemplate)"><i
+                  class="pl-2 pr-1 mr-1 fa fa-trash"></i></a>
+              </td>
+              <ng-template #editPickUpLocationTemplate>
+
+                <div class="modal-header text-center">
+                  <b class="modal-title">Edit PickUp Location</b>
+                  <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+                  <!--<span aria-hidden="true">&times;</span>-->
+                  <!--</button>-->
+                </div>
+                <div class="modal-body text-center">
+                  <form (ngSubmit)="editPickUpLocation(pickUpLocation,inx)" [formGroup]="pickUpLocationForm">
+                    <div class="form-group form-row">
+                      <label class="col-lg-12" for="location">PickUp Location<sup class="red-text">*</sup></label>
+                      <input type="text" class="form-control col-lg-12" id="location"
+                             formControlName="location">
+                      <app-control-messages
+                        [control]="pickUpLocationForm['controls']['location']"></app-control-messages>
+                      <app-alert></app-alert>
+                    </div>
+                    <div class="form-group form-row">
+                      <div class="col-6">
+                        <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                          class='black-text'>Cancel</span>
+                        </button>
+
+                      </div>
+                      <div class="col-6">
+                        <button type="button" class="btn btn-primary"
+                                [disabled]="editPickUpLocationButtonClicked"
+                                (click)="editPickUpLocation(pickUpLocation,inx)">Confirm
+                          <app-spinner [isLoading]="editPickUpLocationButtonClicked"></app-spinner>
+                        </button>
+                      </div>
+
+
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+              <ng-template #deletePickUpLocationTemplate>
+                <div class="modal-header text-center">
+                  <b class="modal-title">Delete Accommodation Room</b>
+                  <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+                  <!--<span aria-hidden="true">&times;</span>-->
+                  <!--</button>-->
+                </div>
+                <div class="modal-body">
+                  <p class="font-italic">This will delete this pickup location.
+
+
+                  </p>
+                  <p class="black-text">Are you sure to delete this pickup location ?</p>
+                  <div class="form-group form-row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-default" (click)="modalService.closeModal()"><span
+                        class='black-text'>Cancel</span>
+                      </button>
+
+                    </div>
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary"
+                              [disabled]="deletePickUpLocationButtonClicked"
+                              (click)="deletePickUpLocation(pickUpLocation,inx)">Confirm
+                        <app-spinner [isLoading]="deletePickUpLocationButtonClicked"></app-spinner>
+                      </button>
+                    </div>
+
+
+                  </div>
+
+
+                </div>
+              </ng-template>
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

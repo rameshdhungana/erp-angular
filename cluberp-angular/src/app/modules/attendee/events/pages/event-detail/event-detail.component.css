@@ -1,0 +1,9 @@
+.accordionPanelHeader {
+  height: 3rem;
+  width: 100%;
+  background-color: lightblue;
+  margin: 1rem 0 .3rem 0;
+  padding-left: 1rem;
+  /*box-shadow: 3px 3px 3px #888888*/
+
+}

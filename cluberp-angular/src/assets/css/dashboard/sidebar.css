@@ -1,0 +1,239 @@
+  /******************************************
+Sidebar css start
+******************************************/
+.dashboard-sidebar {
+  width: 250px;
+  float: left;
+  height: 100%;
+  background-color: #0d0d0d;
+  min-height: 100%;
+  position: fixed;
+  top: 80px;
+  overflow: hidden;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.dashboard-sidebar ul {
+}
+
+.dashboard-sidebar ul li {
+}
+
+.dashboard-sidebar ul li a {
+  color: #fff;
+  padding: 10px 20px;
+  display: block;
+}
+.dashboard-sidebar ul li a.selected {
+  background-color: #1d1d1d;
+}
+
+.dashboard-sidebar ul li a i {
+  margin-right: 10px;
+}
+
+.dashboard-sidebar ul li a.userinfo {
+  display: block;
+  background: url(../../images/user-bg.jpg) no-repeat;
+  position: relative;
+  padding: 20px 20px 11px 20px;
+  z-index: 1;
+}
+
+.dashboard-sidebar ul li a.userinfo:before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.dashboard-sidebar ul li a.userinfo span {
+  display: block;
+}
+
+.dashboard-sidebar ul li a.userinfo .userlogo {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  padding: 6px;
+  margin-bottom: 11px;
+  display: block;
+}
+
+.dashboard-sidebar ul li a.userinfo .userlogo img {
+  margin: 0 auto;
+  display: block;
+  width: auto;
+}
+
+.dashboard-sidebar ul li a.userinfo .username {
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.dashboard-sidebar ul li a.userinfo .datepicker {
+  font-size: 12px;
+}
+
+.dashboard-sidebar ul li a.dropdown-toggle {
+  position: relative;
+  /* background-color: #383838; */
+}
+
+.dashboard-sidebar ul li a.dropdown-toggle:after {
+  content: "\f107";
+  font-family: FontAwesome;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -10px;
+}
+
+.dashboard-sidebar ul li a.collapsed {
+  background-color: transparent;
+}
+
+.dashboard-sidebar ul li a.collapsed:after {
+  content: "\f105";
+}
+
+.dashboard-sidebar ul li.no-link {
+  color: #fff;
+  text-transform: uppercase;
+  padding: 11px 20px;
+  font-weight: 700;
+  background-color: #191919;
+}
+
+.dashboard-sidebar ul li .sub-menu {
+  background-color: #232323;
+  padding: 0 0 0 39px;
+  position: relative;
+}
+
+.dashboard-sidebar ul li .sub-menu li {
+  position: relative;
+}
+
+.dashboard-sidebar ul li .sub-menu li a {
+  position: relative;
+  padding: 8px 20px 8px 15px;
+  font-size: 13px;
+}
+
+.dashboard-sidebar ul li .sub-menu > li:after,
+.dashboard-sidebar ul li .sub-menu > li:before {
+  position: absolute;
+  content: "";
+}
+
+.dashboard-sidebar ul li .sub-menu > li:first-child:before {
+  top: 0;
+}
+
+.dashboard-sidebar ul li .sub-menu > li.has-sub > a:before,
+.dashboard-sidebar ul li .sub-menu > li:before,
+.dashboard-sidebar ul li .sub-menu > li > a:after {
+  background: #242a31;
+}
+
+.dashboard-sidebar ul li .sub-menu > li:before {
+  left: -13px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.dashboard-sidebar ul li .sub-menu > li:after {
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border: 1px solid #889097;
+  top: 50%;
+  border-radius: 4px;
+  margin-top: -4px;
+  z-index: 10;
+  background: #2d353c;
+}
+
+.dashboard-sidebar ul li .sub-menu > li > a:after {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  width: 11px;
+  height: 1px;
+  margin-top: -2px;
+}
+
+.dashboard-sidebar ul li .sub-menu > li > a:before,
+.dashboard-sidebar ul li .sub-menu > li:before,
+.dashboard-sidebar ul li .sub-menu > li > a:after {
+  background: #404040;
+}
+
+.dashboard-sidebar ul li .sub-menu li a i {
+  margin-right: 10px;
+}
+
+.dashboard-sidebar ul li a:hover,
+.dashboard-sidebar ul li.active a {
+  background-color: #262626;
+}
+
+.dashboard-sidebar ul li:first-child a {
+  background-color: #000000;
+}
+
+.dashboard-sidebar ul li .sub-menu > li > a:hover {
+  background-color: transparent;
+  color: #929292;
+}
+
+.dashboard-sidebar ul li .sub-menu > li:hover:after {
+  border: 1px solid #2186c4;
+}
+
+.dashboard-sidebar ul li.active .sub-menu {
+  display: block;
+}
+
+.dashboard-sidebar ul li .sub-menu li:first-child a {
+  background-color: transparent;
+}
+
+.dashboard-sidebar .sidebar-footer {
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #171616;
+}
+
+.dashboard-sidebar .sidebar-footer ul {
+  letter-spacing: -4px;
+}
+
+.dashboard-sidebar .sidebar-footer ul li {
+  display: inline-block;
+  text-align: center;
+  letter-spacing: 0px;
+}
+
+.dashboard-sidebar .sidebar-footer ul li a {
+  padding: 15px 25px;
+  text-align: center;
+}
+
+.sidebar .sidebar-footer ul li a i {
+  margin-right: 0;
+}

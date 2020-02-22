@@ -1,0 +1,103 @@
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Creditor List</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active">Creditor List</li>
+      </ol>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-6 text-right">
+    <!--<a [routerLink]="['/admin/events/create']" class="btn btn-info rounded"><i-->
+    <!--class="fa fa-plus"></i> Add Event </a>-->
+  </div>
+
+  <!--<div class="col-sm-6 col-lg-6 text-left mt-2">-->
+  <!--<b>Event:</b> Test Event-->
+  <!--</div>-->
+</div>
+
+<!-- Search form -->
+<div class="row page-top-wrapper">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <div class="btn-group" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic">
+        Filter <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+          role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" (click)="filterAllAttendee()">All</a></li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <form onSubmit="return false;">
+      <input class="form-control form-control-md" type="text" placeholder="Search" aria-label="Search"
+             (keyup.enter)="searchAttendee($event)">
+      <button type="button" class="hidden"></button>
+    </form>
+  </div>
+</div>
+<!-- Page Top Wrapper End -->
+<div class="ptoject list employee-list-view">
+  <div class="user-list">
+    <table class="table table-striped user-table">
+      <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Balance (AUD)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let attendee of allAttendeeList.value;">
+        <td>{{attendee?.user?.first_name}} {{attendee?.user?.last_name}}</td>
+        <td>{{attendee?.user?.email}}</td>
+        <td>{{attendee?.user?.phone_number}}</td>
+
+        <td>{{attendee?.group_type}}</td>
+
+        <td>
+          {{attendee?.registration_status}}
+        </td>
+        <td class="pull-right">
+          <b>${{attendee?.balance | convertToTwoFixedDecimal}}</b>
+        </td>
+
+
+      </tr>
+
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="ps15">
+      <div class="row">
+        <div class="col-xs-12 col-12">
+          <pagination [totalItems]="pagination.value['count']" [itemsPerPage]="pagination.value['page_size']"
+                      [rotate]="true" [maxSize]="10"
+                      (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+      </div>
+    </nav>
+    <!--<nav aria-label="Page navigation example" class="ps15">-->
+    <!--<ul class="pagination">-->
+    <!--<li class="page-item"><a class="page-link" *ngIf="!pagination.value['has_previous']"><i-->
+    <!--class="fa fa-angle-left"></i></a></li>-->
+    <!--<li class="page-item"><a class="page-link active" href="#">1</a></li>-->
+    <!--<li class="page-item"><a class="page-link" href="#">2</a></li>-->
+    <!--<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+    <!--<li class="page-item"><a class="page-link" *ngIf="!pagination.value['has_next']"><i-->
+    <!--class="fa fa-angle-right"></i></a></li>-->
+    <!--</ul>-->
+    <!--</nav>-->
+
+  </div>
+</div>
+
+
+

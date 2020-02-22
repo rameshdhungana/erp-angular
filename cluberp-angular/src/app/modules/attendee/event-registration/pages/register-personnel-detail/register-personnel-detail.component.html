@@ -1,0 +1,148 @@
+<div class="inner-page">
+  <div class="page-top parallax registration-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>{{eventDetail?.title}} </h2>
+          <span class="title-date"><i
+            class="fa fa-calendar"></i>
+            {{eventDetail?.start_date | date:'MMM dd yyy'}} {{eventDetail?.start_time}}
+            <span style="display:inline;"
+                  *ngIf="!eventDetail?.is_single_day_event">-{{eventDetail?.end_date | date:'MMM dd yyy'}} {{eventDetail?.end_time}}</span>
+          </span>
+          <span class="title-location"><i class="fa fa-map-marker"></i>{{eventDetail?.venue_location}}</span>
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Personal Details</li>
+            </ol>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <section class="register-section register-form-section">
+    <div class="container form-container">
+      <!--<div *ngIf="!showLinkToViewEventRegistrationDetail">-->
+
+      <div *ngFor="let error of errorMessages">
+        <alert type="danger" [dismissible]="false">{{error}}</alert>
+      </div>
+      <!--</div>-->
+      <div *ngIf="showLinkToViewEventRegistrationDetail" class="alert alert-info">
+        <a style="color:blue;"
+           (click)="openUrlInNewTab(viewEventRegistrationDetailLink)">{{viewEventRegistrationDetailLink}}</a>
+      </div>
+      <form (ngSubmit)="createMainAttendee()" class="row" [formGroup]="personnelDetailForm">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="box-container row no-gutters">
+            <div class="form-title col-lg-12">
+              <h3><span class="count-number">1</span>Personal Detail</h3>
+            </div>
+
+            <div class="form-group col-lg-6">
+              <label for="fname">First Name <span style="color:red">*</span> </label>
+              <input type="text" class="form-control" id="fname" formControlName="first_name" required>
+              <app-control-messages [control]="parentForm['first_name']"></app-control-messages>
+            </div>
+            <div class="form-group col-lg-6">
+              <label for="lname">Last Name <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="lname" formControlName="last_name" required>
+              <app-control-messages [control]="parentForm['last_name']"></app-control-messages>
+            </div>
+            <div class="form-group col-lg-6 mb20">
+              <label for="email">E-mail</label>
+              <input type="email" class="form-control" id="email" formControlName="email" email>
+              <app-control-messages [control]="parentForm['email']"></app-control-messages>
+              <small class="text-danger" *ngIf="parentForm['email']?.errors">Email is not
+                valid.
+              </small>
+            </div>
+            <div class="form-group col-lg-6 mb20">
+              <label for="phone_number">Phone Number <span style="color:red">*</span></label>
+              <ngx-intl-tel-input
+                [cssClass]="'form-control'"
+                [preferredCountries]="['au', 'np']"
+                [enablePlaceholder]="true"
+                id="phone_number"
+                formControlName="phone_number"></ngx-intl-tel-input>
+              <app-control-messages [control]="parentForm['phone_number']"></app-control-messages>
+              <small *ngIf="parentForm['phone_number'].touched && parentForm['phone_number'].invalid"
+                     class="text-danger">
+                Invalid Mobile Number
+              </small>
+            </div>
+            <div class="form-group col-lg-3 mb20">
+              <label for="smart_card_number">Smart Card Number</label>
+              <input type="text" class="form-control" id="smart_card_number" formControlName="smart_card_number">
+              <app-control-messages [control]="parentForm['smart_card_number']"></app-control-messages>
+            </div>
+            <div class="form-group col-lg-3 mb20">
+              <label for="smart_card_number">Name In Smart Card</label>
+              <input type="text" class="form-control" id="name_in_smart_card" formControlName="name_in_smart_card">
+              <app-control-messages [control]="parentForm['name_in_smart_card']"></app-control-messages>
+            </div>
+
+
+            <div class="form-group col-lg-6">
+              <label for="country" class="form-label">Country <span style="color:red">*</span></label>
+              <div class="select" id="country">
+                <select formControlName="country" class="dropdown-select form-control" required>
+                  <option *ngFor="let country of countryJsonList[0];let i=index;"
+                          [value]="country.Code">{{country.Name}}</option>
+                </select>
+                <app-control-messages [control]="parentForm['country']"></app-control-messages>
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <label for="city" class="form-label">City <span style="color:red">*</span></label>
+              <input type="text" class="form-control" id="city" required formControlName="city">
+              <app-control-messages [control]="parentForm['city']"></app-control-messages>
+            </div>
+            <div class="form-group col-lg-6 mb20">
+              <label for="is_senior_citizen">Are you Senior Citizen?</label>
+              <input type="checkbox" class="form-control-lg" id="is_senior_citizen"
+                     formControlName="is_senior_citizen"/>
+              <app-control-messages [control]="parentForm['is_senior_citizen']"></app-control-messages>
+            </div>
+            <div class="form-group col-lg-6 mb20">
+              <label for="smart_card_number" for="is_pwk">Are you PWK? <span
+                class="font-italic"> (Person with Knowledge)</span></label>
+              <input type="checkbox" class="form-control-lg" id="is_pwk"
+                     formControlName="is_pwk"/>
+              <app-control-messages [control]="parentForm['is_pwk']"></app-control-messages>
+            </div>
+            <div class="form-group col-lg-12 col-sm-12 mb20">
+
+              <div *ngFor="let error of errorMessages">
+                <alert type="danger" [dismissible]="false">{{error}}
+                </alert>
+              </div>
+              <div *ngIf="showLinkToViewEventRegistrationDetail" class="alert alert-info">
+                You have already registered for the event. Please click on link below to
+                check:<br>
+                <a style="color:blue;"
+                   (click)="openUrlInNewTab(viewEventRegistrationDetailLink)">{{viewEventRegistrationDetailLink}}</a>
+              </div>
+            </div>
+            <div class="form-group footer-form col-lg-12">
+              <div class="clearfix">
+                <!--  <a href="#" class="link-btn back-btn float-left"><i class="fa fa-long-arrow-left"></i> Return</a> -->
+                <button type="submit" class="btn btn-primary float-right" [disabled]="formIsSubmitted">
+                  <app-spinner [isLoading]="formIsSubmitted"></app-spinner>
+                  Next Step<i
+                  class="fa fa-long-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+</div>

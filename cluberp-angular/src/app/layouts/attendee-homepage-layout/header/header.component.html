@@ -1,0 +1,63 @@
+<!-- Header Start -->
+<header>
+  <div class="top-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <ul class="top-contact d-none d-lg-block d-md-block">
+            <li><i class="pe-7s-map-marker"></i>Top Floor, Bhatbhateni, Newroad, Kaski Pokhara - 9</li>
+            <li><i class="pe-7s-phone"></i>+977 9802830001</li>
+            <li><i class="pe-7s-mail-open-file"></i>pokharaskysports@gmail.com</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 clearfix">
+          <div class="float-right">
+            <ul class="top-social-icon">
+              <li><a href="#" class="pe-so-facebook"></a></li>
+              <li><a href="#" class="pe-so-linkedin"></a></li>
+              <li><a href="#" class="pe-so-instagram"></a></li>
+              <li><a href="#" class="pe-so-youtube-1"></a></li>
+            </ul>
+            <ul class="top-log-btn">
+              <li><a [routerLink]="['/auth/login']">Login</a></li>
+              <li><a [routerLink]="['/auth/register']">Sign Up / Register</a></li>
+              <li *ngIf="userIsLoggedIn()" class="logout"><a [routerLink]="['/']"><i class="user-img"><img
+                src="../../../../assets/images/thumb-6.jpg"
+                alt=""></i> Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" data-toggle="affix">
+    <div class="container"><a class="navbar-brand" [routerLink]="['/']"><img src="../../../../assets/images/Amaroo_logo.png" alt="Image Not Found"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+        class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active"><a class="nav-link" [routerLink]="['/']">Home <span
+            class="sr-only">(current)</span></a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/about-us']">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/services']">Our Services</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/volunteership']">VolunteerShip</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/about-us']">Press Release</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/events']">Events</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/career']">Career</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/contact']">Contact Us</a></li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <div class="form-group">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="pe-7s-search"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+</header>
+<!-- Header End -->

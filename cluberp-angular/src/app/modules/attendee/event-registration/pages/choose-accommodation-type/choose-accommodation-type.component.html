@@ -1,0 +1,268 @@
+<div class="inner-page">
+  <app-spinner-overlay [isLoading]="loading"></app-spinner-overlay>
+
+  <div class="page-top parallax registration-page-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="events-info">
+            <h3>{{eventDetail?.title}}</h3>
+            <div class="events-date clearfix">
+            <span><i
+              class="zmdi zmdi-calendar-alt"></i>
+                <span
+                  *ngIf="eventDetail?.show_start_time">{{eventDetail?.start_date| date:'medium'}}
+                </span>
+                 <span *ngIf="!eventDetail?.show_start_time">{{eventDetail?.start_date| date:'fullDate'}}</span>
+                </span>
+              <span *ngIf="!eventDetail?.is_single_day_event">
+                  <span *ngIf="eventDetail?.show_end_time">{{eventDetail?.end_date| date:'medium'}}
+                </span>
+              <span *ngIf="!eventDetail?.show_end_time">{{eventDetail?.end_date| date:'fullDate'}}</span></span>
+              <span class="title-location"><i class="fa fa-map-marker"></i>{{eventDetail?.venue_location}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb clearfix">
+              <li class="breadcrumb-item">Home</li>
+              <li class="breadcrumb-item active" aria-current="page">Accommodation Type</li>
+            </ol>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <section class="register-section register-form-section">
+    <div class="container form-container">
+      <!--<div *ngIf="!showLinkToViewEventRegistrationDetail">-->
+      <form (ngSubmit)="registerPersonnelDetail()" class="row" [formGroup]="personnelDetailForm">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="box-container row no-gutters">
+            <div class="form-title col-lg-12">
+              <h3><span class="count-number">2</span>Choose Accommodation Type</h3>
+            </div>
+
+
+            <div class="form-group col-lg-6 col-md-12 col-sm-12">
+              <label class="form-label">Accommodation Type <span style="color:red">*</span>
+                <span class="font-italic">
+                    {{eventDetail?.only_offsite_registration ? ' (OffSite Type)' : ' (OffSite Type or OnSite Type)'}}
+                </span></label>
+              <div class="select">
+                <select formControlName="group_type" class="dropdown-select form-control"
+                        (change)="alterValidatorForNumberOfAttendees()">
+                  <option *ngIf="!eventDetail?.only_offsite_registration" value="OnSite">OnSite</option>
+                  <option value="OffSite" *ngIf="!registrationChangedToOnSite.value">OffSite</option>
+                </select>
+                <app-control-messages [control]="parentForm['group_type']"></app-control-messages>
+              </div>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-12 col-sm-12" *ngIf="parentForm['group_type'].value=='OnSite'">
+              <label class="form-label">Number of additional guests for accommodation sharing<span
+                style="color:red">*</span>
+
+              </label>
+
+              <div class="select" id="numberOfGuests">
+                <select formControlName="numberOfGuests" class="dropdown-select form-control">
+                  <option *ngFor="let num of availableAccommodationSharingList;let i=index;"
+                          [value]="num">{{num}} {{ num === 0 ? ' additional Guest (Just Me)' : 'additional guest sharing accommodation' }}</option>
+                </select>
+                <app-control-messages [control]="parentForm['numberOfGuests']"></app-control-messages>
+              </div>
+            </div>
+            <div class="form-group col-lg-6 col-sm-12 col-md-12" *ngIf="parentForm['group_type'].value=='OffSite'">
+              <label class="form-label" for="all_days">All Days <span class="font-italic"> (All days of events will be selected)</span></label>
+              <input type="radio" id="all_days" formControlName="offsite_stay_type" value="all_days"
+                     [checked]="allDayOffsiteTypeIsChecked()">
+              <label class="form-label" for="day_pass">Day Pass <span class="font-italic"> (You can select individual days of event)</span></label>
+              <input id='day_pass' type="radio" formControlName="offsite_stay_type" value="day_pass"
+                     [checked]="dayPassOffsiteTypeIsChecked()">
+
+              <app-control-messages [control]="parentForm['offsite_stay_type']"></app-control-messages>
+            </div>
+
+
+            <div class="form-group col-lg-12 col-sm-12" *ngIf="parentForm['offsite_stay_type'].value==='day_pass'">
+              <div formArrayName="selected_offsite_day_pass_items">
+                <label class="col-lg-12">Select Day Pass Tickets<sup class="red-text">*</sup></label>
+                <app-control-messages [control]="parentForm['selected_registration_items']"></app-control-messages>
+                <div
+                  *ngFor="let eachForm of dayPassItemForm.controls;let itemForm_inx = index">
+                  <div [formGroup]="eachForm">
+                    <div class="card mb-2">
+                      <div class="card-header control-group">
+                        <label class="control control--checkbox d-block">
+
+                          <input type="checkbox" formControlName="day_pass_item_checked"
+                                 value="{{offSiteDayPassRegistrationItems[itemForm_inx].uuid}}"
+                                 (change)="addOrRemoveOffSiteDayPassItems($event.target.checked,offSiteDayPassRegistrationItems[itemForm_inx],itemForm_inx)">
+                          <div class="control__indicator"></div>
+                          {{offSiteDayPassRegistrationItems[itemForm_inx]?.item_master?.name}}
+                        </label>
+
+                        <span class="pull-right">${{offSiteDayPassRegistrationItems[itemForm_inx]?.current_rate}}
+                                          </span>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--<div class="col-lg-12 col-md-12 col-sm-12" *ngIf="eventDetail?.allow_group_registration">-->
+            <!--<div class="box-container" style="padding-bottom:17px !important;">-->
+            <div class="form-group col-lg-12 col-sm-12"
+                 *ngIf="eventDetail && !eventDetail?.only_offsite_registration">
+              <div class="form-title no-margin">
+                <h3><span class="count-number">{{f.length}}</span>Additional Guests</h3>
+              </div>
+              <div formArrayName="additionalGuests">
+                <div *ngFor="let guestForm of f.controls;let i = index;" class="row">
+                  <div class="form-subtitle control-group col-lg-12 mb-3 bg-light">
+                    <h5>Guest {{i + 1}} Detail
+                      <!--<a (click)="removeGuestDetailForm(i)"><i class="cross-icon float-right fa fa-times"></i></a>-->
+                    </h5>
+                  </div>
+                  <div [formGroup]="guestForm" class="row">
+                    <div class="form-group col-lg-6">
+                      <label for="guestfname">First Name <span style="color:red">*</span></label>
+                      <input type="text" class="form-control" id="guestfname" formControlName="first_name">
+                      <app-control-messages
+                        [control]="guestForm.controls['first_name']"></app-control-messages>
+                    </div>
+                    <div class="form-group col-lg-6">
+                      <label for="guestlname">Last Name <span style="color:red">*</span></label>
+                      <input type="text" class="form-control" id="guestlname" formControlName="last_name">
+                      <app-control-messages [control]="guestForm.controls['last_name']"></app-control-messages>
+                    </div>
+                    <div class="form-group col-lg-6 mb20">
+                      <label for="guestemail">E-mail</label>
+                      <input type="email" class="form-control" id="guestemail" formControlName="email">
+                      <app-control-messages [control]="guestForm.controls['email']"></app-control-messages>
+                      <small class="text-danger" *ngIf="guestForm.controls['email']?.errors">Email is not
+                        valid.
+                      </small>
+                    </div>
+                    <div class="form-group col-lg-6 mb20">
+                      <label>Mobile Number <span style="color:red">*</span></label>
+                      <ngx-intl-tel-input
+                        [cssClass]="'form-control'"
+                        [preferredCountries]="['au', 'np']"
+                        [enablePlaceholder]="false"
+                        [enableAutoCountrySelect]="true"
+                        formControlName="phone_number"></ngx-intl-tel-input>
+                      <app-control-messages [control]="guestForm.controls['phone_number']"></app-control-messages>
+                      <small
+                        *ngIf="guestForm.controls['phone_number'].touched && guestForm.controls['phone_number'].invalid"
+                        class="text-danger">
+                        Invalid Mobile Number
+                      </small>
+                    </div>
+                    <div class="form-group col-lg-6 mb20">
+                      <label>Smart Card Number </label>
+                      <input type="text" class="form-control"
+                             formControlName="smart_card_number">
+                      <app-control-messages
+                        [control]="guestForm.controls['smart_card_number']"></app-control-messages>
+                    </div>
+                    <div class="form-group col-lg-6 mb20">
+                      <label>Name in Smart Card </label>
+                      <input type="text" class="form-control"
+                             formControlName="name_in_smart_card">
+                      <app-control-messages
+                        [control]="guestForm.controls['name_in_smart_card']"></app-control-messages>
+                    </div>
+                    <!--<div class="form-group col-lg-6">-->
+                    <!--<label for="gender" class="form-label">Gender <span style="color:red">*</span></label>-->
+                    <!--<div class="select">-->
+                    <!--<select formControlName="gender" class="dropdown-select form-control" required>-->
+                    <!--<option value="Male">Male</option>-->
+                    <!--<option value="Female">Female</option>-->
+                    <!--<option value="Other">Other</option>-->
+                    <!--</select>-->
+                    <!--<app-control-messages [control]="guestForm.controls['gender']"></app-control-messages>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group col-lg-6">
+                      <label class="form-label">Country <span style="color:red">*</span></label>
+                      <div class="select">
+                        <select formControlName="country" class="dropdown-select form-control" required>
+                          <option *ngFor="let country of countryJsonList[0];let i=index;"
+                                  [value]="country.Code">{{country.Name}}</option>
+                        </select>
+                        <app-control-messages [control]="guestForm.controls['country']"></app-control-messages>
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                      <label for="city" class="form-label">City <span style="color:red">*</span></label>
+                      <input type="text" class="form-control" required formControlName="city" id="city">
+                      <app-control-messages [control]="guestForm.controls['city']"></app-control-messages>
+                    </div>
+                    <div class="form-group col-lg-6 mb20">
+                      <label for="guest-senior-citizen">Is s/he Senior Citizen? </label>
+                      <input type="checkbox" class="form-control-lg" id="guest-senior-citizen"
+                             formControlName="is_senior_citizen"/>
+
+                      <app-control-messages
+                        [control]="guestForm.controls['is_senior_citizen']"></app-control-messages>
+                    </div>
+                    <div class="form-group col-lg-6 mb20">
+                      <label for="guest-is-pwk">Is s/he PWK? <span
+                        class="font-italic"> (Person With Knowledge)</span></label>
+                      <input type="checkbox" class="form-control-lg" id="guest-is-pwk"
+                             formControlName="is_pwk">
+
+                      <app-control-messages [control]="guestForm.controls['is_pwk']"></app-control-messages>
+                    </div>
+                  </div>
+                </div>
+                <!--<div class="form-group control-group bg-light col-lg-12">-->
+                <!--<button class="btn btn-link add-btn btn-sm" *ngIf="(f.length+1) < eventDetail?.max_group_limit"-->
+                <!--(click)="addGuest()">-->
+                <!--<i class="fa fa-plus-circle fa-1x"></i>Add Guest-->
+                <!--</button>-->
+                <!--<span *ngIf="(f.length + 1) >= eventDetail?.max_group_limit"-->
+                <!--class="alert alert-warning">You have reached the maximum number of guests allowed !!!</span>-->
+                <!--</div>-->
+
+              </div>
+
+              <!--</div>-->
+              <!--</div>-->
+            </div>
+            <div class="form-group col-lg-12 mb20">
+
+              <div *ngFor="let error of errorMessages">
+                <alert type="danger" [dismissible]="false">{{error}}</alert>
+              </div>
+              <!--</div>-->
+              <div *ngIf="showLinkToViewEventRegistrationDetail" class="alert alert-info">
+                You have already registered for the event. Please click on link below to
+                check:<br>
+                <a style="color:blue;"
+                   (click)="openUrlInNewTab(viewEventRegistrationDetailLink)">{{viewEventRegistrationDetailLink}}</a>
+              </div>
+            </div>
+            <div class="form-group footer-form col-lg-12">
+              <div class="clearfix">
+                <!--  <a href="#" class="link-btn back-btn float-left"><i class="fa fa-long-arrow-left"></i> Return</a> -->
+                <button type="submit" class="btn btn-primary float-right" [disabled]="formIsSubmitted">
+                  <app-spinner [isLoading]="formIsSubmitted"></app-spinner>
+                  Next Step<i
+                  class="fa fa-long-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

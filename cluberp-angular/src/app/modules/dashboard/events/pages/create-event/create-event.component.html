@@ -1,0 +1,238 @@
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Create Events</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active">Create Events</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<!-- Page Top Wrapper End -->
+<div class="box-container no-border">
+  <div class="post-form event-form">
+    <div class="form-title event-form-title">
+      <h3>Please fill up the event form</h3>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <form [formGroup]="eventCreationForm" (ngSubmit)="eventUuid?editEventFormSubmit(): onSubmitEventForm()">
+          <div class="form-group form-row">
+            <label class="col-lg-2" for="title">Title<sup class="red-text">*</sup></label>
+            <input type="text" class="form-control col-lg-10" id="title" formControlName="title">
+            <app-control-messages [control]="f['title']"></app-control-messages>
+
+          </div>
+          <div class="form-group form-row">
+            <label class="col-lg-2" for="description">Description<sup class="red-text">*</sup></label>
+            <ckeditor [editor]="Editor" data="" formControlName="description"
+                      id="description"></ckeditor>
+            <app-control-messages [control]="f['description']"></app-control-messages>
+
+
+          </div>
+          <div class="form-group form-row">
+            <label class="control control--checkbox">
+              <input type="checkbox" formControlName="is_single_day_event">
+              <div class="control__indicator"></div>
+              Is single day event
+            </label>
+          </div>
+          <div class="form-group form-row">
+            <label class="col-lg-2">{{f['is_single_day_event'].value ? 'Event Date' : 'Start Date'}}
+              <sup
+                class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10">
+              <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
+                     formControlName="start_date" class="form-control">
+              <owl-date-time #dt1 [hour12Timer]="true"></owl-date-time>
+              <i class="fa fa-calendar"></i>
+              <app-control-messages [control]="f['start_date']"></app-control-messages>
+
+            </div>
+          </div>
+          <div class="form-group form-row" *ngIf="f['is_single_day_event'].value">
+            <label class="col-lg-2" for="start_time">Start Time<sup class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10">
+              <!--<timepicker formControlName="start_time" id="start_time"></timepicker>-->
+              <input type="time" formControlName="start_time" id="start_time" class="form-control">
+
+              <i class="fa fa-clock-o"></i>
+              <app-control-messages [control]="f['start_time']"></app-control-messages>
+
+            </div>
+          </div>
+          <div class="form-group form-row" *ngIf="!f['is_single_day_event'].value">
+            <label class="col-lg-2" for="end_date">End Date<sup
+              class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10">
+              <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" id="end_date" class="form-control"
+                     formControlName="end_date">
+              <owl-date-time #dt2 [hour12Timer]="true"></owl-date-time>
+              <i class="fa fa-calendar"></i>
+              <app-control-messages [control]="f['end_date']"></app-control-messages>
+
+            </div>
+          </div>
+          <div class="form-group form-row" *ngIf="f['is_single_day_event'].value">
+            <label class="col-lg-2" for="end_time">End Time<sup class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10">
+              <!--<timepicker formControlName="end_time" id="end_time"></timepicker>-->
+              <input type="time" formControlName="end_time" id="end_time" class="form-control">
+              <i class="fa fa-clock-o"></i>
+
+              <app-control-messages [control]="f['end_time']"></app-control-messages>
+
+            </div>
+          </div>
+
+          <div class="form-group form-row">
+            <label class="col-lg-2">Early Bird Date
+              <sup
+                class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10">
+              <input [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3"
+                     formControlName="early_bird_date" class="form-control">
+              <owl-date-time #dt3 [hour12Timer]="true"></owl-date-time>
+              <i class="fa fa-calendar"></i>
+              <app-control-messages [control]="f['early_bird_date']"></app-control-messages>
+
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label class="col-lg-2" for="venue_location">Venue Location<sup class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10"><input name="locationName" type="text"
+                                                     class="form-control" formControlName="venue_location"
+                                                     id="venue_location">
+              <i class="fa fa-map-marker"></i>
+              <app-control-messages [control]="f['venue_location']"></app-control-messages>
+
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label class="col-lg-2" for="label">Label<sup class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10">
+              <input type="text" class="form-control" id="label" formControlName="label">
+              <i class="fa fa-tag"></i>
+              <app-control-messages [control]="f['label']"></app-control-messages>
+
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label class="col-lg-2" for="summary">Summary<sup class="red-text">*</sup></label>
+            <ckeditor [editor]="Editor" data="" formControlName="summary"
+                      id="summary"></ckeditor>
+            <app-control-messages [control]="f['summary']"></app-control-messages>
+
+
+          </div>
+          <div class="form-group form-row">
+            <label class="control control--checkbox" for="allow_group_registration">
+              <input type="checkbox" formControlName="allow_group_registration" id="allow_group_registration">
+              <div class="control__indicator"></div>
+              Allow group registration<sup class="red-text">*</sup>
+            </label>
+            <app-control-messages [control]="f['allow_group_registration']"></app-control-messages>
+
+          </div>
+          <div class="form-group form-row" *ngIf="f['allow_group_registration'].value">
+            <label class="col-lg-2" for="max_group_limit">Max group limit<sup class="red-text">*</sup></label>
+            <div class="input-wrap col-lg-10"><input type="number" class="form-control"
+                                                     formControlName="max_group_limit" id="max_group_limit">
+              <app-control-messages [control]="f['max_group_limit']"></app-control-messages>
+
+
+            </div>
+          </div>
+          <div class="file-upload">
+            <label class="col-lg-2">Title Image</label>
+
+            <label for="upload" class="file-upload__label"><span class="fa fa-plus"></span>Upload Title Image</label>
+            <input id="upload" class="file-upload__input" type="file" name="file-upload" formControlName="title_images">
+            <app-control-messages [control]="f['title_images']"></app-control-messages>
+
+          </div>
+          <div class="form-group form-row">
+
+            <label class="col-lg-2">Type<sup class="red-text">*</sup></label>
+            <ngx-select-dropdown (change)="selectEventTypeList($event)" formControlName="type" [multiple]="false"
+                                 class="col-lg-10"
+                                 [config]="config" [options]="eventTypeList"></ngx-select-dropdown>
+            <app-control-messages [control]="f['type']"></app-control-messages>
+
+
+          </div>
+          <div class="form-group form-row">
+
+            <label class="col-lg-2">Category<sup class="red-text">*</sup></label>
+
+            <ngx-select-dropdown (change)="selectEventCategory($event)" formControlName="category" [multiple]="false"
+                                 class="col-lg-10" [config]="config"
+                                 [options]="eventCategoryList"></ngx-select-dropdown>
+            <app-control-messages [control]="f['category']"></app-control-messages>
+
+
+          </div>
+          <div class="form-group form-row">
+            <label class="col-lg-2">Organizer<sup class="red-text">*</sup></label>
+            <ngx-select-dropdown (change)="selectEventOrganizer($event)" formControlName="organizer" [multiple]="false"
+                                 class='col-lg-10' [config]="config"
+                                 [options]="eventOrganizerList"></ngx-select-dropdown>
+            <app-control-messages [control]="f['organizer']"></app-control-messages>
+
+          </div>
+
+          <!--<div class="form-group form-row">-->
+          <!--<label class="col-lg-2" for="status">Status<sup class="red-text">*</sup></label>-->
+          <!--<div class="select col-lg-10">-->
+          <!--<select class="form-control" id="status" formControlName="status">-->
+          <!--<option disabled>&#45;&#45;Select Status&#45;&#45;</option>-->
+          <!--<option>Open</option>-->
+          <!--<option>Closed</option>-->
+          <!--<option>Paused</option>-->
+          <!--</select>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="form-group form-row">
+            <label class="control control--checkbox" for="show_total_capacity">
+              <input type="checkbox" id="show_total_capacity" formControlName="show_total_capacity">
+              <div class="control__indicator"></div>
+              Show total capacity
+            </label>
+            <label class="control control--checkbox" for="show_remaining_seats">
+              <input type="checkbox" id="show_remaining_seats" formControlName="show_remaining_seats">
+              <div class="control__indicator"></div>
+              Show remaining seats
+            </label>
+
+            <label class="control control--checkbox" for="show_start_time">
+              <input type="checkbox" id="show_start_time" formControlName="show_start_time">
+              <div class="control__indicator"></div>
+              Show start time
+            </label>
+            <label class="control control--checkbox" for="show_end_time">
+              <input type="checkbox" id="show_end_time" formControlName="show_end_time">
+              <div class="control__indicator"></div>
+              Show end time
+            </label>
+          </div>
+          <div class="col-lg-12">
+            <div class="button-wrapper">
+              <button *ngIf="eventUuid;else createEventButtonTemplate" type="submit" [disabled]="editEventButtonClicked"
+                      class="btn btn-primary">
+                Edit Event
+                <app-spinner [isLoading]="editEventButtonClicked"></app-spinner>
+              </button>
+              <ng-template #createEventButtonTemplate>
+                <button type="submit" [disabled]="createEventButtonClicked" class="btn btn-primary">Create Event
+                  <app-spinner [isLoading]="createEventButtonClicked"></app-spinner>
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

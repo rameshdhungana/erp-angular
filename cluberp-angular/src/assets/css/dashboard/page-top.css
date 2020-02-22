@@ -1,0 +1,89 @@
+/******************************************
+Pagetop css start
+******************************************/
+.page-top-wrapper {
+	padding: 25px 0;
+}
+.page-top-wrapper .title {
+	margin-bottom: 0;
+}
+.page-top-wrapper .title h2 {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 0;
+	font-family: 'Roboto', sans-serif;
+}
+.page-top-wrapper .breadcrumb {
+	display: inline-block;
+	border-left: 1px solid #ccc;
+	border-radius: 0;
+	background-color: transparent;
+	margin-left: 12px;
+	margin-bottom: 0;
+	padding-left: 15px;
+}
+.page-top-wrapper .breadcrumb li {
+	color: #595959;
+	display: inline-block;
+	
+}
+.page-top-wrapper .breadcrumb li a {
+	color: #595959;
+	position: relative;
+}
+.page-top-wrapper .breadcrumb li + li:before {
+	content: "/";
+	margin: 0 11px;
+}
+.page-top-wrapper .breadcrumb li a:hover {
+	text-decoration: underline;
+}
+.page-top-wrapper .breadcrumb li.active {
+	color: #6c757d;
+}
+.page-top-wrapper .btn-group {
+	display: inline-block;
+}
+.page-top-wrapper .btn {
+	border-radius: 0 !important;
+	border: none;
+	font-weight: bold;
+	color: #595959;
+	background-color: #fff;
+	box-shadow: none;
+	font-size: 12px;
+	padding: 7px 15px;
+	text-transform: none;
+}
+.page-top-wrapper .btn:hover {
+	color: #595959 !important;
+}
+.page-top-wrapper .btn-group .dropdown-menu {
+}
+.page-top-wrapper .btn-group .dropdown-menu li {
+}
+.page-top-wrapper .btn-group .dropdown-menu li a {
+}
+.page-top-wrapper .view-icons {
+	display: inline-block;
+	background-color: #fff;
+	margin-left: 5px;
+	letter-spacing: -4px;
+}
+.page-top-wrapper .view-icons .btn-link {
+	color: #595959;
+	letter-spacing: 0;
+	font-size: 12px;
+	margin: 0;
+	width: 35px;
+	height: 31px;
+	line-height: 31px;
+	text-align: center;
+	padding: 0;
+}
+.page-top-wrapper .view-icons .btn-link + .btn-link {
+	border-left: 1px solid #ececec;
+}
+/*Pagetop  End*/

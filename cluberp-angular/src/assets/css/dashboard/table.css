@@ -1,0 +1,90 @@
+body {
+	background-color: #f2f2f2;
+}
+/******************************************
+Table css start
+******************************************/
+.employee-list-view li:before {
+	display: none;
+}
+.table {
+	background-color: #ffffff;
+    border: 1px solid #dee2e6;
+}
+
+table .action a {
+	margin: 0 6px;
+	color: #3f464c;
+}
+table .action a i {
+	margin-right: 10px;
+}
+table .dropdown .btn.active {
+	color: #02c13d !important;
+}
+table .dropdown .btn {
+	border: 1px solid #b1afaf !important;
+	background-color: transparent !important;
+	padding: 4px 15px;
+	font-size: 12px;
+	color: #5a5a5a !important;
+	width: 125px;
+	border-radius: 3px;
+	text-transform: none;
+}
+table tbody tr td span.initial-name-word {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	display: inline-block;
+	background-color: #aaaaaa;
+	color: #fff;
+	text-align: center;
+	border-radius: 50%;
+	margin-right: 15px;
+}
+table .dropdown .btn.inactive {
+	color: #dc3545 !important;
+}
+table .dropdown .btn i {
+	margin-right: 5px;
+}
+
+table .dropdown .dropdown-menu a.active {
+	color: #212529;
+}
+
+table .dropdown .dropdown-menu a i {
+	margin-right: 5px;
+}
+table .view-detail a {
+	color: #595959;
+	font-size: 13px;
+}
+table .view-detail a i {
+	margin-right: 8px;
+}
+.btn-info:not(:disabled):not(.disabled).active,
+.btn-info:not(:disabled):not(.disabled):active,
+.show > .btn-info.dropdown-toggle {
+	background-color: #ffffff;
+	border-color: transparent;
+	color: #595959;
+}
+.btn-info:not(:disabled):not(.disabled).active:focus,
+.btn-info:not(:disabled):not(.disabled):active:focus,
+.show > .btn-info.dropdown-toggle:focus {
+	box-shadow: none;
+}
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-secondary.dropdown-toggle:focus {
+	box-shadow: none;
+}
+h2.group-title {
+	font-size: 20px;	
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+
+}

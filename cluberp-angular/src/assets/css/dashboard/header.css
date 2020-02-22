@@ -1,0 +1,305 @@
+
+/******************************************
+Header css start
+******************************************/
+.dashboard-header {
+  background-color: #ffffff;
+  padding-left: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+}
+.dashboard-header img {
+  max-width: inherit;
+  width: 100%;
+}
+.dashboard-header.affix {
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.dashboard-header .navbar {
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  margin-bottom: 0;
+  min-height: inherit;
+  padding: 0;
+}
+
+.dashboard-header .navbar-default .top-menu-list {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.dashboard-header .navbar-light .navbar-brand {
+  border: none;
+  margin-right: 1rem;
+  padding: 0.3125rem 0;
+  width: 150px;
+}
+
+.dashboard-header .navbar-header {
+  padding: 0;
+}
+
+.dashboard-header .navbar-nav .nav-link {
+  position: relative;
+  padding: 15px 15px;
+}
+
+.dashboard-header .navbar-nav .nav-item {
+  position: relative;
+}
+
+.dashboard-header .navbar-nav .nav-link .badge {
+  position: absolute;
+  top: 9px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  line-height: 20px;
+  padding: 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  background-color: #2186c4;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.dashboard-header .navbar-nav .dropdown-toggle::after {
+  display: none;
+}
+
+.dashboard-header .top-menu-list {
+  width: 100%;
+  padding: 0 !important;
+}
+
+.dashboard-header .form-inline {
+  width: 40%;
+  position: relative;
+  margin-left: 90px;
+  margin-top: 0;
+}
+.dashboard-header .form-inline .form-group {
+  width: 100%;
+}
+
+.dashboard-header .form-inline .form-control {
+  width: 100%;
+  background-color: #f2f3f4;
+  border-radius: 20px;
+  border: 1px solid #e0e2e3;
+  box-shadow: none;
+  height: 40px;
+  font-size: 15px;
+}
+
+.dashboard-header .form-inline .btn {
+  background-color: transparent !important;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  border: none;
+  padding: 0;
+  margin-top: -12px;
+  color: #333 !important;
+  font-size: 16px;
+}
+
+.dashboard-header .header .navbar-nav > li > .dropdown-menu {
+  margin-top: 0;
+  border-top: 1px solid #f2f3f4;
+  box-shadow: 0 13px 25px -2px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.dashboard-header .dropdown-menu.media-list {
+  max-width: 360px;
+  padding: 0;
+  left: auto;
+  right: 0;
+}
+
+.dashboard-header .dropdown-menu.media-list .dropdown-header {
+  padding: 10px 15px;
+  background: #f2f3f4;
+  font-size: 13px;
+  color: #595959;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.dashboard-header .dropdown-menu.media-list .dropdown-header + .media {
+  margin-top: 0;
+}
+
+.dashboard-header .dropdown-menu.media-list > .media {
+  margin-top: 0;
+  border-top: 1px solid #f2f3f4;
+  border-bottom: 1px solid #f2f3f4;
+  margin-bottom: -1px;
+}
+
+.dashboard-header .dropdown-menu.media-list > .media > a {
+  display: block;
+  padding: 10px 15px;
+  clear: both;
+  white-space: nowrap;
+}
+
+.dashboard-header .dropdown-menu.media-list > .media .media-left {
+  padding-right: 10px;
+}
+
+.dashboard-header .dropdown-menu.media-list > .media .media-object {
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  background-color: #b4b6b7;
+}
+
+.dashboard-header .navbar-nav > li > .dropdown-menu.media-list .media-heading {
+  font-weight: 600;
+  margin: 0;
+  line-height: 16px;
+  font-size: 13px;
+}
+
+.dashboard-header .dropdown-menu.media-list > .media .media-object {
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.dashboard-header .dropdown-menu.media-list p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 5px;
+  line-height: 16px;
+  max-width: 270px;
+  color: #595959;
+  font-size: 12px;
+}
+
+.dashboard-header .dropdown-menu > li.dropdown-footer > a {
+  padding: 10px 0;
+  display: block;
+  font-size: 12px;
+}
+
+.dashboard-header .dropdown-menu > li.dropdown-footer > a:focus,
+.dashboard-header .dropdown-menu > li.dropdown-footer > a:hover {
+  background: 0 0;
+  text-decoration: underline;
+}
+
+.dashboard-header .navbar-user {
+}
+
+.dashboard-header .navbar-default li.navbar-user a {
+  font-weight: 600;
+  padding: 15px 15px;
+}
+
+.dashboard-header .navbar-user a .user-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.dashboard-header .navbar-user a .caret {
+  margin-left: 7px;
+}
+
+.dashboard-header .navbar-nav > li.new-visitor {
+}
+
+.dashboard-header .navbar-nav > li.new-visitor a {
+  background-color: #00acac;
+  color: #fff;
+  font-weight: bold;
+  position: relative;
+}
+
+.dashboard-header .navbar-nav > li.new-visitor a:before {
+  content: "";
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid #00acac;
+  display: block;
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  margin-top: -6px;
+}
+
+.dashboard-header .navbar-nav > li.new-visitor a i {
+  margin-right: 5px;
+}
+
+.dashboard-header .navbar-default .navbar-nav > li.new-visitor > a:focus,
+.dashboard-header .navbar-default .navbar-nav > li.new-visitor > a:hover {
+  background-color: #00acac;
+  color: #fff;
+}
+
+.dashboard-header .navbar-default .navbar-nav > .open > a,
+.dashboard-header .navbar-default .navbar-nav > .open > a:focus,
+.dashboard-header .navbar-default .navbar-nav > .open > a:hover {
+  color: #595959;
+  background-color: transparent;
+}
+
+.dashboard-header .navbar-default li.navbar-user .dropdown-menu {
+  padding: 0;
+  min-width: 200px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.dashboard-header .navbar-default li.navbar-user .dropdown-menu li {
+}
+
+.dashboard-header .navbar-default li.navbar-user .dropdown-menu li a {
+  padding: 7px 15px;
+  font-weight: normal;
+}
+
+.dashboard-header .dropdown-menu .divider {
+  margin: 0;
+}
+
+.dashboard-header .navbar-default .navbar-collapse,
+.dashboard-header .navbar-default .navbar-form {
+  border: none;
+}
+
+.dashboard-header .dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: transparent;
+}
+.dashboard-header .navbar-light .navbar-nav .active > .nav-link,
+.dashboard-header .navbar-light .navbar-nav .nav-item:hover .nav-link {
+  color: #111111;
+}
+.dashboard-header .navbar-light .navbar-nav .nav-item .nav-link:before {
+  background-color: transparent;
+}

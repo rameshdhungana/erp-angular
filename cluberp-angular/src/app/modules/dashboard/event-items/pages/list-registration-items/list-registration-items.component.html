@@ -1,0 +1,82 @@
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Registration Item List </h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="active">Registration Item List</li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Search form -->
+<div class="row page-top-wrapper">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <!--<div class="btn-group" dropdown>-->
+    <!--<button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"-->
+    <!--aria-controls="dropdown-basic">-->
+    <!--{{selectedFilter ? selectedFilter : 'All'}} <span class="caret"></span>-->
+    <!--</button>-->
+    <!--<ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"-->
+    <!--role="menu" aria-labelledby="button-basic">-->
+    <!--<li role="menuitem"><a class="dropdown-item" (click)="filterEventList(null,null)">All</a></li>-->
+    <!---->
+
+    <!--</ul>-->
+    <!--</div>-->
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <form onSubmit="return false;">
+      <input class="form-control form-control-md" type="text" placeholder="Search" aria-label="Search"
+             (keyup.enter)="searchEventItem($event)">
+      <button type="button" class="hidden"></button>
+    </form>
+  </div>
+</div>
+<!-- Page Top Wrapper End -->
+<div class="ptoject list employee-list-view">
+  <div class="user-list">
+    <table class="table table-striped user-table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Item Capacity</th>
+        <th>Item Booked</th>
+        <th>Is Day Item</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let eventItem of eventItemList.value;let inx=index">
+
+        <td>{{eventItem?.item_master?.name }}</td>
+        <td>{{eventItem?.item_capacity}}</td>
+        <td>
+          {{eventItem?.items_booked}}
+
+        </td>
+        <td>
+          {{eventItem?.is_day_pass_item}}
+
+        </td>
+
+
+      </tr>
+
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="ps15">
+      <div class="row">
+        <div class="col-xs-12 col-12">
+          <pagination [totalItems]="pagination.value['count']" [itemsPerPage]="pagination.value['page_size']"
+                      [rotate]="true" [maxSize]="10"
+                      (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+

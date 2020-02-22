@@ -1,0 +1,8 @@
+<div *ngIf="message"
+     [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error','alert-dismissible':true }">{{message.text}}
+</div>
+<!--<a class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
+
+<!--<div *ngIf="message">-->
+<!--<alert [type]="alert.type" [dismissible]="dismissible" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>-->
+<!--</div>-->

@@ -1,0 +1,60 @@
+<!--Footer Start-->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8">
+        <div class="footer-top">
+          <p class="font25" [innerHTML]="configList?.footer_description"></p>
+          <a [routerLink]="['/about-us']" class="btn solid-btn mt30">Read More <i
+            class="fa fa-long-arrow-right"></i></a></div>
+        <ul class="footer-link">
+          <li><a [routerLink]="['/']">Home</a></li>
+          <li><a [routerLink]="['/about-us']">About Us</a></li>
+          <li><a [routerLink]="['/services']">Our Services</a></li>
+          <li><a [routerLink]="['/volunteership']">VolunteerShip</a></li>
+          <li><a [routerLink]="['/press-release']">Press Release</a></li>
+          <li><a [routerLink]="['/careers']">Careers</a></li>
+          <li><a [routerLink]="['/contact']">Contact Us</a></li>
+        </ul>
+        <p class="copyright d-none d-lg-block">
+          <span [innerHTML]="configList?.copyright_content"></span>Powered by
+          <a (click)="openExternalLink(configList?.nipuna_website_link)" target="_blank"
+             [innerHTML]="configList?.powered_by" class=""></a>
+        </p>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="footer-right">
+          <ul>
+            <li *ngIf="configList?.location"><i class="pe-7s-map-marker"></i>
+              <span [innerHTML]="configList?.location"></span>
+            </li>
+            <li *ngIf="configList?.contact_number_first"><i
+              class="fa fa-phone"></i><span [innerHTML]="configList?.contact_number_first"></span>
+            </li>
+            <li *ngIf="configList?.contact_number_second"><i
+              class="fa fa-phone"></i><span [innerHTML]="configList?.contact_number_second"></span></li>
+            <li *ngIf="configList?.contact_email"><i
+              class="fa fa-envelope-square"></i><span [innerHTML]="configList?.contact_email"></span></li>
+          </ul>
+          <h4>Follow Us</h4>
+          <ul class="footer-social-link">
+            <li *ngIf="configList?.facebook_link"><a (click)="openExternalLink(configList?.facebook_link)"><i
+              class="fa fa-facebook"></i></a></li>
+            <li *ngIf="configList?.instagram_link"><a (click)="openExternalLink(configList?.instagram_link)"
+                                                      target="_blank"><i
+              class="fa fa-instagram"></i></a></li>
+            <li *ngIf="configList?.youtube_link"><a (click)="openExternalLink(configList?.youtube_link)"
+                                                    target="_blank"><i
+              class="fa fa-youtube"></i></a></li>
+            <li *ngIf="configList?.linkedin_link"><a (click)="openExternalLink(configList?.linkedin_link)"
+                                                     target="_blank"><i
+              class="fa fa-linkedin"></i></a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!--Footer End-->
+

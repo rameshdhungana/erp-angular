@@ -1,0 +1,62 @@
+<div *ngIf="!loading">
+<app-alert></app-alert>
+<div class="row page-top-wrapper">
+  <div class="col-sm-6 col-lg-6">
+    <div class="title clearfix">
+      <h2>Create Group</h2>
+      <ol class="breadcrumb">
+        <li><a href="index.html">Dashboard</a></li>
+        <li class="active">Create Group</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<form (ngSubmit)="createGroup(groupPermissionForm)" #groupPermissionForm="ngForm" class="create-form">
+  <div class="form-group">
+    <label for="group_name">Group Name <sup class="red-text">*</sup></label>
+    <input type="text" class="form-control" id="group_name" aria-describedby="groupName"
+    placeholder="Group Name" name="name" ngModel #name="ngModel" required>
+    <small *ngIf="name.errors?.required && groupPermissionForm.submitted" class="text-danger">
+    Group Name is required.
+    </small>
+  </div>
+  <div class="form-group">
+    <label>Select Permissions <sup class="red-text">*</sup></label>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Permissions</th>
+            <th scope="col">Description</th>
+            <th scope="col">Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let permission of permissionList;let inx=index">
+            <td>
+              <input type="checkbox" aria-label="Check or Uncheck permission" name="permission{{inx}}"
+              [ngModel]="perms" (change)="updateSelectedPermissionList($event.target.checked,permission.id)">
+            </td>
+            <td>
+              {{permission?.codename}}
+            </td>
+            <td>
+              {{permission?.name}}
+            </td>
+            <td>
+              {{permission?.content_type.model}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="button-wrapper">
+    <button type="submit" class="btn solid-btn"
+  [disabled]="selectedPermissionList.length <1  ||  groupPermissionForm.invalid">Save
+  </button>
+   </div>
+ 
+</form>
+</div>
